@@ -1,0 +1,135 @@
+user
+    -user_email
+    -user_password
+    -user_role
+    -user_first_name
+    -user_last_name
+    -user_phone_number
+    -user_image_url
+    -user_address
+
+employee
+    -employee_order_status(done,pending,canceled,notAssigned)
+
+proforma
+    -invoice_date
+    -invoice_number
+    -active_tin_nUmber
+    -active_account_number
+    -active_vat
+    -active_phone_number
+    -active_email
+    -payment_request_number
+    -company_tin_number
+    -company_phone_number
+    -price_validity
+    -payment_price
+    -including_vat
+    -contact_person
+    -status(verified,canceled,pending)
+    
+active_phoneNumber  
+    -phoneNumber
+active_accountNumber
+    -accountNumber
+    -bankName
+
+order
+    -item_description
+    -size
+    -quantity
+    -unit_price
+    -total_price
+    -vendor_name
+    -status(done,pending,canceled,notAssigned)
+    -if(canceled)-discription
+
+freelancer
+    -freelancer_first_name
+    -freelancer_last_name
+    -freelancer_address
+    -freelancer_phone_number
+    -freelancer_email
+    -freelancer_image_url
+    -freelancer_portfolio_link
+    -freelancer_order_status(done,pending,canceled,notAssigned)
+
+stock
+    -item_description
+    -quantity
+    -unit_price
+    -total_price
+    -unit_measurement
+    -purchase_date
+    -expire_date
+    -dealer_name
+
+
+
+possible routes
+
+if already logged in route to home else to login
+    -/
+
+Authentication    
+    -/login
+    -/forgot
+    -/confirm
+    -/new-password
+
+proforma
+    -/proforma == proforma list
+    -/proforma/:id == single proforma detail
+    -/proforma/add == new profoma/take order
+
+order
+    -/order == order list
+    -/order/:id == single order detail
+    -/order/assign == assign order    
+
+customer
+    -/customer == customer list
+    -/customer/:id == single customer detail
+    -/customer/delete == customer delete
+
+admin 
+    -/admin/report
+    -/admin/profile
+    -/admin/basic_info == edit constants and add role
+
+account_manager
+    -/account_manager == account manager list
+    -/account_manager/:id == singel account manager detail
+    -/account_manager/add == add account manager
+    -/account_manager/delete == delete account manager
+    -/account_manager/profile
+
+freelancer 
+    -/freelancer == freelancer list
+    -/freelancer/add ==add freelancer 
+    -/freelancer/delete == remove freelancer
+    -/freelancer/:id == single freelancer detail
+
+employee 
+    -/employee == all employee list
+    -/employee/designer ==all designer
+    -/employee/designer/:id == single designer detail
+    -/employee/profile
+    -/employee/order == assigned job order list 
+    -/employee/order/:id == each assigned order detail
+
+stock
+    -/stock == stock list
+    -/stosk/add == add to stock
+    -/agreement ==agreement
+
+agreement
+    -/agreement
+
+delivery
+    -/delivery
+    
+logout
+    -/logout
+
+38 route
