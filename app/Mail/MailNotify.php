@@ -21,7 +21,7 @@ class MailNotify extends Mailable
         // $this->resetCode = $resetCode;
     }
 
- 
+
     public function envelope(): Envelope
     {
         return new Envelope(
@@ -48,4 +48,5 @@ class MailNotify extends Mailable
     {
         return [];
     }
+
 }

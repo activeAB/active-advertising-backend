@@ -19,6 +19,6 @@ class User extends Authenticatable
         'user_phone_number',
         'user_address',
         'user_image_url',
-        'password',
+        'user_password',
     ];
 }

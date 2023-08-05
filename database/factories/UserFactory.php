@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'user_phone_number' => $this->faker->phoneNumber,
             'user_address' => $this->faker->address,
             'user_image_url' => $this->faker->imageUrl(200, 200, 'people'),
-            'password' => bcrypt('password'), // Replace with hashed password or any other default value
+            'user_password' => bcrypt('password'), // Replace with hashed password or any other default value
 
         ];
     }

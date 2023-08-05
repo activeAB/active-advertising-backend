@@ -9,6 +9,7 @@ class Password_resets extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'reset_code' => 'required'
+        'reset_code' => 'required',
+        'user_email' => 'required'
     ];
 }

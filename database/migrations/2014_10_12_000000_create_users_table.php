@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('user_phone_number');
             $table->string('user_address');
             $table->string('user_image_url');
-            $table->string('password');
+            $table->string('user_password');
             $table->timestamps();
         });
     }
