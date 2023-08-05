@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('basic_infos', function (Blueprint $table) {
             $table->id()->unique();
-            $table->string("active_tin_nUmber");
+            $table->string("active_tin_number");
             $table->string("active_vat");
             $table->string("active_email");
             $table->timestamps();

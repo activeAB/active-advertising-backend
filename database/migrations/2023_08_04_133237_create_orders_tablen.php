@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('item_description');
-            $table->string(' size');
-            $table->string(' quantity');
-            $table->string(' unit_price');
-            $table->string(' total_price');
-            $table->string(' vendor_name');
+            $table->string('size');
+            $table->string('quantity');
+            $table->string('unit_price');
+            $table->string('total_price');
+            $table->string('vendor_name');
             $table->string('status');
             $table->string('status_description');
             $table->timestamps();

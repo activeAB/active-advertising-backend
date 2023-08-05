@@ -21,22 +21,16 @@ class UserFactory extends Factory
             'user_first_name' => $this->faker->firstName,
             'user_last_name' => $this->faker->lastName,
             'user_email' => $this->faker->unique()->safeEmail,
-            'user_role' => $this->faker->randomElement(['admin', 'user']),
+            'user_role' => $this->faker->randomElement(['admin', 'user', 'designer']),
             'user_phone_number' => $this->faker->phoneNumber,
             'user_address' => $this->faker->address,
             'user_image_url' => $this->faker->imageUrl(200, 200, 'people'),
             'password' => bcrypt('password'), // Replace with hashed password or any other default value
-            
+
         ];
     }
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
 }
