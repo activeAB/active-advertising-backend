@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,8 @@ Route::post('/user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
 Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
+
+Route::post('/stock/add', [StockController::class, 'store']);
+Route::get('/stock', [StockController::class, 'index']);
+Route::put('/stock/{id}', [StockController::class, 'update']);
+Route::delete('/stock/{id}', [StockController::class, 'destroy']);
