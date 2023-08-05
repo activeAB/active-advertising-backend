@@ -13,8 +13,8 @@ class StockController extends Controller
     public function index()
     {
         //
-        $Stock = stock::all();
-        return $Stock;
+        $stock = Stock::all();
+        return $stock;
     }
 
     /**
@@ -42,8 +42,8 @@ class StockController extends Controller
             'dealer_name'=> 'required',
         ]);
 
-        $Stock = stock::create($data);
-        return $Stock;
+        $stock = Stock::create($data);
+        return $stock;
     }
 
     /**
@@ -79,9 +79,9 @@ class StockController extends Controller
             'expire_date'=> 'required',
             'dealer_name'=> 'required',
         ]);
-        $Stock = stock::findOrFail($id);
-        $Stock->update($data);
-        return $Stock;
+        $stock = Stock::findOrFail($id);
+        $stock->update($data);
+        return $stock;
     }
 
     /**
@@ -90,8 +90,8 @@ class StockController extends Controller
     public function destroy(string $id)
     {
         //
-        $Stock = stock::findOrFail($id);
-        $Stock->delete();
-        return $Stock;
+        $stock = Stock::findOrFail($id);
+        $stock->delete();
+        return $stock;
     }
 }
