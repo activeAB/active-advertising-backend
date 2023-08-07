@@ -44,11 +44,8 @@ Route::put('/freelancer/{id}', [FreelancerConroller::class, 'update']);
 Route::delete('/freelancer/{id}', [FreelancerConroller::class, 'destroy']);
 Route::get('/freelancer/{id}',[FreelancerConroller::class, 'show']);
 
-Route::post('/account_manager/add', [AccountManagerController::class, 'store']);//it's unnecessory because there is user store
+
 Route::get('/account_manager', [AccountManagerController::class, 'index']);
-Route::put('/account_manager/{id}', [FreelancerConroller::class, 'update']);//it's unnecessory because there is user update
-Route::delete('/account_manager/{id}', [FreelancerConroller::class, 'destroy']);//it's unnecessory because there is user desroy
-Route::get('/account_manager/{id}',[AccountManagerController::class, 'show']);//it's unnecessory because there is user show
 
 Route::get('/employee', [EmployeeController::class, 'index']);//it also used from employ profile
 Route::get('/employee/{user_role}', [EmployeeController::class, 'staffList']);
