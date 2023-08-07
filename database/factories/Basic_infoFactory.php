@@ -17,9 +17,11 @@ class Basic_infoFactory extends Factory
     public function definition(): array
     {
         return [
-            'active_tin_nUmber' => $this->faker->unique()->bothify('###??#??##'),
-            'active_vat' => $this->faker->unique()->randomNumber(5),
+            'active_tin_number' => $this->faker->randomNumber(),
+            'active_vat' => $this->faker->randomNumber(),
             'active_email' => $this->faker->unique()->safeEmail,
+            'active_account_number' => $this->faker->bankAccountNumber,
+            'active_phone_number' => $this->faker->phoneNumber,
         ];
     }
 }

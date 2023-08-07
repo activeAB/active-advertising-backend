@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string("active_tin_number");
             $table->string("active_vat");
             $table->string("active_email");
+            $table->string("active_account_number");
+            $table->string("active_phone_number");
             $table->timestamps();
         });
     }
