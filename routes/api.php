@@ -1,5 +1,11 @@
 <?php
 
+
+use App\Http\Controllers\FreelancerConroller;
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StockController;
+use App\Models\Freelancer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +20,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
 });
+
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/user/{id}', [UserController::class, 'show']);
+Route::post('/user', [UserController::class, 'store']);
+Route::put('/user/{id}', [UserController::class, 'update']);
+Route::delete('/user/{id}', [UserController::class, 'destroy']);
+
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
+Route::post('/verifyCode', [PasswordResetController::class, 'checkCode']);
+Route::post('/changePassword', [PasswordResetController::class, 'changePassword']);
+
+
+Route::post('/stock/add', [StockController::class, 'store']);
+Route::get('/stock', [StockController::class, 'index']);
+Route::put('/stock/{id}', [StockController::class, 'update']);
+Route::delete('/stock/{id}', [StockController::class, 'destroy']);
+
+Route::post('/freelancer/add', [FreelancerConroller::class, 'store']);
+Route::get('/freelancer', [FreelancerConroller::class, 'index']);
+Route::put('/freelancer/{id}', [FreelancerConroller::class, 'update']);
+Route::delete('/freelancer/{id}', [FreelancerConroller::class, 'destroy']);
+Route::get('/freelancer/{id}',[FreelancerConroller::class, 'show']);
+
+

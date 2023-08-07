@@ -23,6 +23,15 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'user_first_name' => $this->faker->firstName,
+            'user_last_name' => $this->faker->lastName,
+            'user_email' => $this->faker->unique()->safeEmail,
+            'user_role' => $this->faker->randomElement(['admin', 'user', 'designer']),
+            'user_phone_number' => $this->faker->phoneNumber,
+            'user_address' => $this->faker->address,
+            'user_image_url' => $this->faker->imageUrl(200, 200, 'people'),
+            'user_password' => bcrypt('password'), // Replace with hashed password or any other default value
+
         ];
     }
 
