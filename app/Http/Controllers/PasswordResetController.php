@@ -23,9 +23,9 @@ class PasswordResetController extends Controller
         $user = User::where('user_email', $request->user_email)->first();
         if (!$user) {
             $data = [
-                "message" => "user not exist"
+                "message" => "User Not Exist"
             ];
-            return $data;
+            return response()->json($data, 401);
         }
         $resetCode = rand(1000, 9999);
         DB::table('password_resets')->insert([
@@ -46,7 +46,7 @@ class PasswordResetController extends Controller
             $message->subject('Your Account Verification Code');
         });
 
-        return response()->json(['message' => 'Reset code sent successfully']);
+        return response()->json(['message' => 'code successfully sent'], 200);
     }
 
     public function checkCode(Request $request)
@@ -57,9 +57,9 @@ class PasswordResetController extends Controller
         ]);
         $resetCodes = Password_resets::orderBy('created_at', 'desc')->get()->where('user_email', $validateInput['user_email'])->first();
         if ($resetCodes['reset_code'] != $validateInput['reset_code']) {
-            return ["message" => "invalid verification"];
+            return response()->json(["message" => "invalid verification"], 401);
         }
-        return ["message" => "successfully Verified"];
+        return response()->json(["message" => "successfully Verified"], 200);
     }
 
     public function changePassword(Request $request)
@@ -81,6 +81,6 @@ class PasswordResetController extends Controller
         ]);
         $data['user_password'] = bcrypt($data['user_password']);
         $user->update($data);
-        return $user;
+        return response()->json(["message" => "password successfully changed"], 200);
     }
 }
