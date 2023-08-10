@@ -43,14 +43,17 @@ class UserController extends Controller
             'user_password' => 'required'
         ]);
         $user = User::where('user_email', $validate_User['user_email'])->first();
-        if (is_null($user) | !Hash::check($validate_User['user_password'], $user->user_password)) {
-            return ["message" => "invalid Credential"];
+        if (is_null($user) || !Hash::check($validate_User['user_password'], $user->user_password)) {
+
+            return response()->json(["message" => "Invalid Credential"], 401);
         }
         $token = $user->createToken("hash")->plainTextToken;
-        return [
+        return response()->json([
+
             "message" => "Logged in Successfully",
-            "token" => $token
-        ];
+            "token" => $token,
+            "user" => $user
+        ], 200);
     }
 
     /**
@@ -79,7 +82,6 @@ class UserController extends Controller
         ]);
         $user = User::findOrFail($id);
         $data['user_password'] = bcrypt($data['user_password']);
-
         $user->update($data);
         return $user;
     }
