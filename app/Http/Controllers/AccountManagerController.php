@@ -12,9 +12,10 @@ class AccountManagerController extends Controller
      */
     public function index()
     {
-        //
-        $user = User::where('user_role','account_manager')->get();
-        return $user;
+        $users = User::where('user_role', 'account_manager')->get();
+        return response()->json([
+            'data' => $users,
+        ], 200);
     }
 
     /**

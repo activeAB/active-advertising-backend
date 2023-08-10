@@ -15,9 +15,14 @@ class Order extends Model
         'size',
         'quantity',
         'unit_price',
-        'total_price',
         'vendor_name',
         'status',
         'status_description'
     ];
+    
+    public function proforma()
+    {
+        return $this->belongsTo(Proforma::class);
+    }
+
 }

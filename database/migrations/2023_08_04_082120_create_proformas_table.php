@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string("price_validity");
             $table->string("payment_method");
             $table->string("contact_person");
+            $table->string('total_price');
             $table->timestamps();
 
         });
