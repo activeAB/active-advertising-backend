@@ -36,7 +36,6 @@ class ProformaController extends Controller
 
         // Validate the proforma data
         $validatedProformaData = $request->validate([
-
             "invoice_date" => 'required',
             "payment_request_number" => 'required',
 
@@ -54,6 +53,7 @@ class ProformaController extends Controller
             "payment_method" => 'required',
             "contact_person" => 'required',
             "total_price" => 'required',
+
         ]);
 
         // Validate the order data (assuming you're sending an array of orders)
@@ -78,6 +78,7 @@ class ProformaController extends Controller
             }
 
             return response()->json(['message' => 'Data stored successfully'], 200);
+
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while storing data'], 500);
         }
@@ -90,13 +91,11 @@ class ProformaController extends Controller
     {
         //
 
-
-        $proforma = Proforma::where('id', $id)->get();
-        $order = Order::where('proforma_id', $id)->get();
+        $proforma = Proforma::where('id',$id)->get();
+        $order = Order::where('proforma_id',$id)->get();
         return response()->json([
             'proforma' => $proforma,
-            'order' => $order,
-        ], 200);
+            'order' => $order], 200);
     }
 
     /**
@@ -113,6 +112,14 @@ class ProformaController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = $request->validate([
+            'status' => 'required',
+        ]);
+
+        $proforma = Proforma::findOrFail($id);
+        $proforma->update($data);
+        
+        return response()->json($proforma,200);
     }
 
     /**
@@ -123,6 +130,7 @@ class ProformaController extends Controller
         //
         $proforma = Proforma::findOrFail($id);
         $proforma->delete();
-        return response()->json($proforma, 200);
+        return response()->json($proforma,200);
     }
 }
+

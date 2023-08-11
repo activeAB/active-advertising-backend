@@ -76,7 +76,7 @@ Route::get('/agreement/{id}', [AgreementController::class, 'show']);
 Route::get('/proforma', [ProformaController::class, 'index']);
 Route::post('/proforma/add', [ProformaController::class, 'store']);
 Route::get('/proforma/{id}', [ProformaController::class, 'show']);
-
+Route::put('/proforma/{id}',[ProformaController::class, 'update']);
 Route::delete('/proforma/{id}', [ProformaController::class, 'destroy']);
 
 Route::get('/order/{id}', [OrderController::class, 'show']);
