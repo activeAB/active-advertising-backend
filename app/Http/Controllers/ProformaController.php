@@ -36,6 +36,7 @@ class ProformaController extends Controller
 
         // Validate the proforma data
         $validatedProformaData = $request->validate([
+
             "invoice_date" => 'required',
             "payment_request_number" => 'required',
 
@@ -88,9 +89,13 @@ class ProformaController extends Controller
     public function show(string $id)
     {
         //
+
+
+        $proforma = Proforma::where('id', $id)->get();
         $order = Order::where('proforma_id', $id)->get();
         return response()->json([
-            'data' => $order,
+            'proforma' => $proforma,
+            'order' => $order,
         ], 200);
     }
 
@@ -116,5 +121,8 @@ class ProformaController extends Controller
     public function destroy(string $id)
     {
         //
+        $proforma = Proforma::findOrFail($id);
+        $proforma->delete();
+        return response()->json($proforma, 200);
     }
 }
