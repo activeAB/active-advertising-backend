@@ -23,15 +23,17 @@ class EmployeeController extends Controller
 
         $freelancer = Freelancer::all();
 
-        return[
-            'user'=>$user,
-            'freelancer'=>$freelancer
-        ];
+        return response()->json([
+            'user' => $user,
+            'freelancer' => $freelancer,
+        ], 200);
     }
 
     public function staffList(string $user_role){
         $users = User::where('user_role', $user_role);
-        return $users;
+        return response()->json([
+            'data' => $users,
+        ], 200);
     }
 
     /**
@@ -57,16 +59,22 @@ class EmployeeController extends Controller
     {
         //
         $order = Order::where('id',$id)->get();
-        return $order;
+        return response()->json([
+            'data' => $order,
+        ], 200);
     }
 
     public function employeeOrder($user_role,$id){
         if($user_role==="freelancer"){
             $orders = Order::where('freelancer_id', $id)->get();
-            return $orders;
+            return response()->json([
+                'data' => $orders,
+            ], 200);
         }
         $orders = Order::where('user_id',$id)->get();
-        return $orders;
+        return response()->json([
+            'data' => $orders,
+        ], 200);
     }
 
     /**

@@ -18,11 +18,15 @@ class Basic_infoFactory extends Factory
     {
         return [
 
+
+            'active_tin_number' => $this->faker->randomNumber(),
+            'active_vat' => $this->faker->randomNumber(),
+            'active_email' => $this->faker->unique()->safeEmail,
             'active_account_number' => $this->faker->bankAccountNumber,
             'active_phone_number' => $this->faker->phoneNumber,
-            'active_tin_nUmber' => $this->faker->unique()->bothify('###??#??##'),
-            'active_vat' => $this->faker->unique()->randomNumber(5),
-            'active_email' => $this->faker->unique()->safeEmail,
+
+            //'active_tin_nUmber' => $this->faker->unique()->bothify('###??#??##'),
+
         ];
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Stock;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
-class StockController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +13,9 @@ class StockController extends Controller
     public function index()
     {
         //
-        $stock = Stock::all();
+        $role = Role::all();
         return response()->json([
-            'data' => $stock,
+            'data' => $role,
         ], 200);
     }
 
@@ -34,19 +34,13 @@ class StockController extends Controller
     {
         //
         $data = $request->validate([
-            'item_description'=> 'required',
-            'quantity'=> 'required',
-            'unit_price'=> 'required',
-            'total_price'=> 'required',
-            'unit_measurement'=> 'required',
-            'purchase_date'=> 'required',
-            'expire_date'=> 'required',
-            'dealer_name'=> 'required',
+            'role' => 'required',
         ]);
 
-        $stock = Stock::create($data);
+        
+        $role = Role::create($data);
         return response()->json([
-            'data' => $stock,
+            'data' => $role,
         ], 200);
     }
 
@@ -61,10 +55,9 @@ class StockController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, string $id)
+    public function edit(string $id)
     {
         //
-
     }
 
     /**
@@ -74,20 +67,15 @@ class StockController extends Controller
     {
         //
         $data = $request->validate([
-            'item_description'=> 'required',
-            'quantity'=> 'required',
-            'unit_price'=> 'required',
-            'total_price'=> 'required',
-            'unit_measurement'=> 'required',
-            'purchase_date'=> 'required',
-            'expire_date'=> 'required',
-            'dealer_name'=> 'required',
+            'role' => 'required',
         ]);
-        $stock = Stock::findOrFail($id);
-        $stock->update($data);
+
+        $role= Role::findOrFail($id);
+        $role->update($data);
         return response()->json([
-            'data' => $stock,
+            'data' => $role,
         ], 200);
+
     }
 
     /**
@@ -96,10 +84,10 @@ class StockController extends Controller
     public function destroy(string $id)
     {
         //
-        $stock = Stock::findOrFail($id);
-        $stock->delete();
+        $role = Role::findOrFail($id);
+        $role->delete();
         return response()->json([
-            'data' => $stock,
+            'data' => $role,
         ], 200);
     }
 }

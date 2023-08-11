@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Basic_info;
 use Illuminate\Http\Request;
 
-class Basic_infoController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $basic_info = Basic_info::all();
-        return response()->json([
-            'data' => $basic_info,
-        ], 200);
+        //
+        
     }
 
     /**
@@ -55,22 +52,12 @@ class Basic_infoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validateBasicInfo = $request->validate([
-            "active_tin_nUmber" => 'required',
-            "active_account_number" => 'required',
-            "active_vat" => 'required',
-            "active_phone_number" => 'required',
-            "active_email" => 'required',
-        ]);
-
-        $basic_info = Basic_info::findOrFail($id);
-        $basic_info->update($validateBasicInfo);
-        return response()->json([
-            'data' => $basic_info,
-        ], 200);
+        //
     }
 
-    
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
         //

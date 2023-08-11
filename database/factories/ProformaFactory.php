@@ -31,6 +31,7 @@ class ProformaFactory extends Factory
             'price_validity' => $this->faker->randomElement(['30 days', '60 days', '90 days']),
             'payment_method' => $this->faker->randomElement(['Credit Card', 'Bank Transfer', 'PayPal']),
             'contact_person' => $this->faker->name,
+            'total_price' => $this->faker->randomFloat(2, 10, 1000),
         ];
     }
 }

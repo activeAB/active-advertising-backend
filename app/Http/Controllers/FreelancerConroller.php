@@ -13,7 +13,9 @@ class FreelancerConroller extends Controller
     {
         //
         $freelancer = Freelancer::all();
-        return $freelancer;
+        return response()->json([
+            'data' => $freelancer,
+        ], 200);
     }
 
     /**
@@ -41,7 +43,9 @@ class FreelancerConroller extends Controller
             'freelancer_order_status'=>'required',
         ]);
         $freelancer = Freelancer::create($data);
-        return $freelancer;
+        return response()->json([
+            'data' => $freelancer,
+        ], 200);
 
     }
 
@@ -52,7 +56,9 @@ class FreelancerConroller extends Controller
     {
         //
         $freelancer = Freelancer::findOrFail($id);
-        return $freelancer;
+        return response()->json([
+            'data' => $freelancer,
+        ], 200);
     }
 
     /**
@@ -82,7 +88,9 @@ class FreelancerConroller extends Controller
 
         $freelancer = Freelancer::findOrFail($id);
         $freelancer->update($data);
-        return $freelancer;
+        return response()->json([
+            'data' => $freelancer,
+        ], 200);
     }
 
     /**
@@ -93,6 +101,8 @@ class FreelancerConroller extends Controller
         //
         $freelancer = Freelancer::findOrFail($id);
         $freelancer->delete();
-        return $freelancer;
+        return response()->json([
+            'data' => $freelancer,
+        ], 200);
     }
 }

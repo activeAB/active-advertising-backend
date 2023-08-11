@@ -17,22 +17,21 @@ return new class extends Migration
             $table->string('size');
             $table->string('quantity');
             $table->string('unit_price');
-            $table->string('total_price');
             $table->string('vendor_name');
-            $table->string('status');
-            $table->string('status_description');
+            $table->string('status')->nullable();
+            $table->string('status_description')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('proforma_id');
             $table->foreign('proforma_id')
                 ->references('id')
                 ->on('proformas')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('freelancer_id');
+            $table->unsignedBigInteger('freelancer_id')->nullable();
             $table->foreign('freelancer_id')
                 ->references('id')
                 ->on('freelancers')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

@@ -24,6 +24,13 @@ class Proforma extends Model
         
         "price_validity",
         "payment_method",
-        "contact_person"
+        "contact_person",
+        "total_price"
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }
