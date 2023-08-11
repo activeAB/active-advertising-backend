@@ -12,9 +12,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ProformaController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\OrderController;
 
 use App\Models\Basic_info;
 use App\Models\Freelancer;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
 });
 
 
@@ -45,7 +48,6 @@ Route::post('/user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
 Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
-
 
 Route::post('/stock/add', [StockController::class, 'store']);
 Route::get('/stock', [StockController::class, 'index']);
@@ -62,7 +64,6 @@ Route::put('/basic_info/{id}', [Basic_infoController::class, 'update']);
 
 Route::get('/freelancer/{id}',[FreelancerConroller::class, 'show']);
 
-
 Route::get('/account_manager', [AccountManagerController::class, 'index']);
 
 Route::get('/employee', [EmployeeController::class, 'index']);//it also used from employ profile
@@ -75,6 +76,10 @@ Route::get('/agreement/{id}', [AgreementController::class, 'show']);
 Route::get('/proforma', [ProformaController::class, 'index']);
 Route::post('/proforma/add', [ProformaController::class, 'store']);
 Route::get('/proforma/{id}', [ProformaController::class, 'show']);
+Route::delete('/proforma/{id}', [ProformaController::class, 'destroy']);
+
+Route::get('/order/{id}', [OrderController::class, 'show']);
+Route::delete('/order/{id}', [OrderController::class, 'destroy']);
 
 Route::post('/role/add', [RoleController::class, 'store']);
 Route::get('/role', [RoleController::class, 'index']);
