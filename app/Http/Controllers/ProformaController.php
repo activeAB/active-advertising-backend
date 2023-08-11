@@ -15,9 +15,7 @@ class ProformaController extends Controller
     {
         //
         $proforma = Proforma::all();
-        return response()->json([
-            'data' => $proforma,
-        ], 200);
+        return response()->json($proforma,200);
     }
 
     /**
@@ -36,23 +34,23 @@ class ProformaController extends Controller
 
         // Validate the proforma data
         $validatedProformaData = $request->validate([
-            "invoice_date"=>'required',
-            "payment_request_number"=>'required',
-    
-            "active_tin_nUmber"=>'required',
-            "active_account_number"=>'required',
-            "active_vat"=>'required',
-            "active_phone_number"=>'required',
-            "active_email"=>'required',
-    
-            "client_name"=>'required',
-            "client_tin_number"=>'required',
-            "client_phone_number"=>'required',
-            
-            "price_validity"=>'required',
-            "payment_method"=>'required',
-            "contact_person"=>'required',
-            "total_price"=>'required',
+            "invoice_date" => 'required',
+            "payment_request_number" => 'required',
+
+            "active_tin_nUmber" => 'required',
+            "active_account_number" => 'required',
+            "active_vat" => 'required',
+            "active_phone_number" => 'required',
+            "active_email" => 'required',
+
+            "client_name" => 'required',
+            "client_tin_number" => 'required',
+            "client_phone_number" => 'required',
+
+            "price_validity" => 'required',
+            "payment_method" => 'required',
+            "contact_person" => 'required',
+            "total_price" => 'required',
         ]);
 
         // Validate the order data (assuming you're sending an array of orders)
@@ -76,7 +74,7 @@ class ProformaController extends Controller
                 $order->save();
             }
 
-            return response()->json(['message' => 'Data stored successfully'],200);
+            return response()->json(['message' => 'Data stored successfully'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while storing data'], 500);
         }
@@ -88,7 +86,7 @@ class ProformaController extends Controller
     public function show(string $id)
     {
         //
-        $order = Order::where('proforma_id',$id)->get();
+        $order = Order::where('proforma_id', $id)->get();
         return response()->json([
             'data' => $order,
         ], 200);
