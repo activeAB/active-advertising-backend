@@ -18,29 +18,67 @@ class weeklyReportController extends Controller
      */
     public function index()
     {
-        //
         $startDate = now()->startOfWeek();  // Start of the current week (Monday)
-        $endDate = $startDate->copy()->endOfWeek();  // End of the current week (Sunday)
+        $endDate = now();  // Current date and time
 
-        $totalOrders = Order::whereBetween('created_at', [$startDate, $endDate])->get();
-        $totalInventory = Stock::whereBetween('created_at', [$startDate, $endDate])->get();
-        $customers = Proforma::whereBetween('created_at', [$startDate, $endDate]);
+        $totalOrders = Order::whereBetween('created_at', [$startDate, $endDate])->count();
+        $totalInventory = Stock::whereBetween('created_at', [$startDate, $endDate])->count();
+        $totalCustomer = Proforma::whereBetween('created_at', [$startDate, $endDate])
+            ->groupBy('client_tin_number')
+            ->select('client_tin_number', DB::raw('COUNT(*) as count'))
+            ->count();
         $approved = Proforma::where('status', 'verified')
-                   ->whereBetween('created_at', [$startDate, $endDate])
-                   ->get();
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
         $allocated = Proforma::where('status', 'allocated')
-                   ->whereBetween('created_at', [$startDate, $endDate])
-                   ->get();
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
         $delivered = Proforma::where('status', 'delivered')
-                   ->whereBetween('created_at', [$startDate, $endDate])
-                   ->get();
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
         $completedOrder = Proforma::where('status', 'done')
-                   ->whereBetween('created_at', [$startDate, $endDate])
-                   ->get();
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+        $totalRevenue = Proforma::whereBetween('created_at', [$startDate, $endDate])->sum('total_price');
+        $totalProfit = Proforma::whereBetween('created_at', [$startDate, $endDate])->sum('total_profit');
+        $totalCost = $totalRevenue - $totalProfit;
 
-        return $approved;
+        // Calculate and store daily totals
+        $dayTotals = [];
+        $daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
+        foreach ($daysOfWeek as $day) {
+            $dayStartDate = $startDate->copy()->addDays(array_search($day, $daysOfWeek));
+            $dayEndDate = $dayStartDate->copy()->endOfDay();
+
+            $dayTotalProfit = Proforma::whereBetween('created_at', [$dayStartDate, $dayEndDate])->sum('total_profit');
+            $dayTotalPrice = Proforma::whereBetween('created_at', [$dayStartDate, $dayEndDate])->sum('total_price');
+
+            $dayTotals[$day . '_profit'] = $dayTotalProfit;
+            $dayTotals[$day . '_price'] = $dayTotalPrice;
+        }
+
+        $weeklyReport = [
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'totalOrder' => $totalOrders,
+            'totalStock' => $totalInventory,
+            'approvedOrder' => $approved,
+            'allocatedOrder' => $allocated,
+            'deliveredOrder' => $delivered,
+            'completedOrder' => $completedOrder,
+            'totalCost' => $totalCost,
+            'totalProfit' => $totalProfit,
+            'totalCustomer' => $totalCustomer,
+            'totalRevenue' => $totalRevenue,
+            'daily_totals' => $dayTotals,
+        ];
+
+        return response()->json($weeklyReport);
     }
+
+
+    
 
     public function generateReport()
     {
@@ -69,9 +107,18 @@ class weeklyReportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $day)
     {
         //
+        $report = Report::whereDate('start_date', '<=', $day)
+                        ->whereDate('end_date', '>=', $day)
+                        ->first();
+        if (!$report) {
+            return response()->json(['message' => 'No report found for the specified day'], 404);
+        }
+
+        return response()->json($report);
+
     }
 
     /**
@@ -88,6 +135,7 @@ class weeklyReportController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
     }
 
     /**
@@ -98,94 +146,5 @@ class weeklyReportController extends Controller
         //
     }
 
-    // public function weeklyReport()
-    // {
-    //     // Calculate the date range for the current week
-    //     $startDate = Carbon::now()->startOfWeek(); // Start of the current week
-    //     $endDate = Carbon::now()->endOfWeek();     // End of the current week
-
-    //     // Fetch daily order counts within the date range
-    //     $dailyOrders = Order::whereBetween('created_at', [$startDate, $endDate])
-    //                         ->groupBy(DB::raw('DATE(created_at)'))
-    //                         ->selectRaw('DATE(created_at) as date, COUNT(*) as order_count')
-    //                         ->get();
-
-    //     // Prepare the data for the graph
-    //     $graphData = [];
-    //     foreach ($dailyOrders as $dailyOrder) {
-    //         $graphData[] = [
-    //             'date' => $dailyOrder->date,
-    //             'order_count' => $dailyOrder->order_count,
-    //         ];
-    //     }
-
-    //     // Return the response
-    //     return response()->json(['graph_data' => $graphData,
-    //                             'start date'=>$startDate,
-    //                             'end date'=>$endDate]);
-    // }
-
-    public function weeklyReport()
-    {
-        // Calculate the date range for the current week (starting from Monday)
-        $startDate = now()->startOfWeek();  // Start of the current week (Monday)
-        $endDate = $startDate->copy()->endOfWeek();  // End of the current week (Sunday)
-
-        // Fetch daily order counts within the date range
-        $dailyOrders = Order::whereBetween('created_at', [$startDate, $endDate])
-                            ->groupBy(DB::raw('DATE(created_at)'))
-                            ->selectRaw('DATE(created_at) as date, COUNT(*) as order_count')
-                            ->get();
-
-        // Prepare the data for the graph
-        $graphData = [];
-        foreach ($dailyOrders as $dailyOrder) {
-            $dayName = Carbon::parse($dailyOrder->date)->format('l'); // Get the day name
-
-            $graphData[] = [
-                'day' => $dayName,
-                'order_count' => $dailyOrder->order_count,
-            ];
-        }
-
-        // Return the response
-            return response()->json(['graph_data' => $graphData,
-                                    'start date'=>$startDate,
-                                    'end date'=>$endDate]);
-    }
-        
-    public function check(){
-        $startDate = now()->startOfWeek();  // Start of the current week (Monday)
-        $endDate = $startDate->copy()->endOfWeek();  // End of the current week (Sunday)
-        $proformaPrice = Proforma::whereBetween('created_at', [$startDate, $endDate])
-                         ->sum('total_price');
-        $proformaProfit = Proforma::whereBetween('created_at', [$startDate, $endDate])
-                         ->sum('total_profit');
-        $proforma = $proformaPrice - $proformaProfit;
-        $approved = Proforma::where('status', 'pending')
-                   ->whereBetween('created_at', [$startDate, $endDate])
-                   ->get()->count();
-        $customerCount = Proforma::whereBetween('created_at', [$startDate, $endDate])
-                         ->groupBy('client_tin_number')
-                         ->select('client_tin_number', DB::raw('COUNT(*) as count'))
-                         ->get()
-                         ->count();
-        // Calculate and store daily totals
-        $dayTotals = [];
-        $daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-
-        foreach ($daysOfWeek as $day) {
-            $dayStartDate = $startDate->copy()->addDays(array_search($day, $daysOfWeek));
-            $dayEndDate = $dayStartDate->copy()->endOfDay();
-
-            $dayTotalProfit = Proforma::whereBetween('created_at', [$dayStartDate, $dayEndDate])->sum('total_profit');
-            $dayTotalPrice = Proforma::whereBetween('created_at', [$dayStartDate, $dayEndDate])->sum('total_price');
-
-            $dayTotals[$day . '_profit'] = $dayTotalProfit;
-            $dayTotals[$day . '_price'] = $dayTotalPrice;
-        }
-        
-        return response()->json([$dayTotals['tuesday_profit'],$dayTotals['tuesday_price']]);
-    }
 
 }

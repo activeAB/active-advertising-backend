@@ -90,8 +90,9 @@ Route::get('/role', [RoleController::class, 'index']);
 Route::put('/role/{id}', [RoleController::class, 'update']);
 Route::delete('/role/{id}', [RoleController::class, 'destroy']);
 
-Route::get('/report',[ReportController::class, 'weeklyReport']);
-Route::get('/rep', [WeeklyReportController::class, 'index']);
+
+
 Route::get('/generate-report', [WeeklyReportController::class, 'generateReport']);
 
-Route::get('/check', [WeeklyReportController::class, 'check']);
+Route::get('/report/{day}', [WeeklyReportController::class, 'show']);
+Route::get('/report', [WeeklyReportController::class, 'index']);
