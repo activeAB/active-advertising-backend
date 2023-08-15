@@ -26,7 +26,8 @@ class Proforma extends Model
         "payment_method",
         "contact_person",
         "total_price",
-        "status"
+        "status",
+        "total_profit"
     ];
 
     public function orders()

@@ -11,12 +11,14 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ProformaController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\WeeklyReportController;
 
 
 use App\Models\Basic_info;
 use App\Models\Freelancer;
 use App\Models\Order;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -87,3 +89,9 @@ Route::post('/role/add', [RoleController::class, 'store']);
 Route::get('/role', [RoleController::class, 'index']);
 Route::put('/role/{id}', [RoleController::class, 'update']);
 Route::delete('/role/{id}', [RoleController::class, 'destroy']);
+
+Route::get('/report',[ReportController::class, 'weeklyReport']);
+Route::get('/rep', [WeeklyReportController::class, 'index']);
+Route::get('/generate-report', [WeeklyReportController::class, 'generateReport']);
+
+Route::get('/check', [WeeklyReportController::class, 'check']);
