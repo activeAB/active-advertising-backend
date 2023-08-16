@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        // 
+        $schedule->command('weekly-report:generate')->weeklyOn(0, '23:59'); // Run every Sunday at 11:59 PM
     }
 
     /**
@@ -22,6 +24,15 @@ class Kernel extends ConsoleKernel
     {
         $this->load(__DIR__.'/Commands');
 
-        require base_path('routes/console.php');
+        $this->load(__DIR__.'/Commands');
+        $files = glob(app_path('Console/Commands') . '/*.php');
+
+        foreach ($files as $file) {
+            $command = 'App\\Console\\Commands\\' . basename($file, '.php');
+            $this->app->singleton($command);
+            $this->commands[] = $command;
+        }
     }
+
+    
 }

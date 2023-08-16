@@ -33,6 +33,7 @@ class ProformaFactory extends Factory
             'contact_person' => $this->faker->name,
             'total_price' => $this->faker->randomFloat(2, 10, 1000),
             'total_profit' => $this->faker->randomFloat(2, 10, 1000),
+
         ];
     }
 }
