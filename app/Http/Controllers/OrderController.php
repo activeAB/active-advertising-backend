@@ -38,7 +38,7 @@ class OrderController extends Controller
     {
         //
         $order = Order::where('id', $id)->get();
-        return response()->json($order,200);
+        return response()->json($order, 200);
     }
 
     /**
@@ -64,7 +64,7 @@ class OrderController extends Controller
     {
         //
         $order = Order::findOrFail($id);
-        $order -> delete();
-        return response()->json($order,200);
+        $order->delete();
+        return response()->json($order, 200);
     }
 }

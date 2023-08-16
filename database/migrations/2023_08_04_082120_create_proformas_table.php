@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('proformas', function (Blueprint $table) {
-            
+
             $table->id();
             $table->string("invoice_date");
             $table->string("payment_request_number")->unique();
@@ -28,8 +28,8 @@ return new class extends Migration
             $table->string("payment_method");
             $table->string("contact_person");
             $table->string('total_price');
+            $table->string('total_profit');
             $table->timestamps();
-
         });
     }
 

@@ -32,6 +32,7 @@ class ProformaFactory extends Factory
             'payment_method' => $this->faker->randomElement(['Credit Card', 'Bank Transfer', 'PayPal']),
             'contact_person' => $this->faker->name,
             'total_price' => $this->faker->randomFloat(2, 10, 1000),
+            'total_profit' => $this->faker->randomFloat(2, 10, 1000),
         ];
     }
 }

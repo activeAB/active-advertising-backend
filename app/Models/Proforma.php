@@ -21,16 +21,16 @@ class Proforma extends Model
         "client_name",
         "client_tin_number",
         "client_phone_number",
-        
+
         "price_validity",
         "payment_method",
         "contact_person",
-        "total_price"
+        "total_price",
+        "total_profit"
     ];
 
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
-
 }

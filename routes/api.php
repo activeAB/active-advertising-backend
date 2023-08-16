@@ -7,6 +7,7 @@ use App\Http\Controllers\AccountManagerController;
 use App\Http\Controllers\AgreementController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FreelancerConroller;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockController;

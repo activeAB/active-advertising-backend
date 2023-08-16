@@ -54,6 +54,7 @@ class ProformaController extends Controller
             "payment_method" => 'required',
             "contact_person" => 'required',
             "total_price" => 'required',
+            "total_profit" => 'required',
         ]);
 
         // Validate the order data (assuming you're sending an array of orders)

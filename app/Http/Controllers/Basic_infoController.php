@@ -13,9 +13,7 @@ class Basic_infoController extends Controller
     public function index()
     {
         $basic_info = Basic_info::all();
-        return response()->json([
-            'data' => $basic_info,
-        ], 200);
+        return response()->json($basic_info, 200);
     }
 
     /**
@@ -70,7 +68,7 @@ class Basic_infoController extends Controller
         ], 200);
     }
 
-    
+
     public function destroy(string $id)
     {
         //
