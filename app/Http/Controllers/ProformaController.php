@@ -38,23 +38,19 @@ class ProformaController extends Controller
         $validatedProformaData = $request->validate([
             "invoice_date" => 'required',
             "payment_request_number" => 'required',
-
             "active_tin_nUmber" => 'required',
             "active_account_number" => 'required',
             "active_vat" => 'required',
             "active_phone_number" => 'required',
             "active_email" => 'required',
-
             "client_name" => 'required',
             "client_tin_number" => 'required',
             "client_phone_number" => 'required',
-
             "price_validity" => 'required',
             "payment_method" => 'required',
             "contact_person" => 'required',
             "total_price" => 'required',
             "total_profit" => 'required',
-
         ]);
 
         // Validate the order data (assuming you're sending an array of orders)
@@ -70,7 +66,6 @@ class ProformaController extends Controller
         try {
             // Create the proforma
             $proforma = Proforma::create($validatedProformaData);
-
             // Create and associate orders with the proforma
             foreach ($validatedOrderData['orders'] as $orderData) {
                 $order = new Order($orderData);

@@ -14,9 +14,7 @@ class RoleController extends Controller
     {
         //
         $role = Role::all();
-        return response()->json([
-            'data' => $role,
-        ], 200);
+        return response()->json($role,200);
     }
 
     /**
@@ -37,11 +35,9 @@ class RoleController extends Controller
             'role' => 'required',
         ]);
 
-        
+
         $role = Role::create($data);
-        return response()->json([
-            'data' => $role,
-        ], 200);
+        return response()->json($role, 200);
     }
 
     /**
@@ -70,12 +66,11 @@ class RoleController extends Controller
             'role' => 'required',
         ]);
 
-        $role= Role::findOrFail($id);
+        $role = Role::findOrFail($id);
         $role->update($data);
         return response()->json([
             'data' => $role,
         ], 200);
-
     }
 
     /**

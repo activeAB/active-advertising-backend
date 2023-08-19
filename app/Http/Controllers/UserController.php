@@ -32,9 +32,13 @@ class UserController extends Controller
             'user_image_url' => 'required',
             'user_password' => 'required',
         ]);
+        $checkUser =  $user = User::where('user_email', $data['user_email'])->first();
+        if ($checkUser) {
+            return response()->json(['message' => 'user exist'], 401);
+        }
         $data['user_password'] = bcrypt($data['user_password']);
         $user = User::create($data);
-        return $user;
+        return response()->json(['message' => 'User Registered successfully'],200);
     }
     public function login(Request $request)
     {

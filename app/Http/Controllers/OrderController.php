@@ -12,7 +12,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $order = Order::orderBy('created_at', 'desc')->get();
+        foreach ($order as $item) {
+            $item->formatted_created_at = date('Y-m-d', strtotime($item->created_at));
+        }
+        return response()->json($order, 200);
     }
 
     /**
