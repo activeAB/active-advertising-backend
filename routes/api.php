@@ -51,6 +51,7 @@ Route::post('/user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
 Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
+Route::get('/user/email/{email}', [UserController::class, 'userFind']);
 
 
 // Not done
@@ -94,8 +95,10 @@ Route::put('/role/{id}', [RoleController::class, 'update']);
 Route::delete('/role/{id}', [RoleController::class, 'destroy']);
 
 
-
-Route::get('/generate-report', [WeeklyReportController::class, 'generateReport']);
-
+// Route::get('/generate-report', [WeeklyReportController::class, 'generateReport']);
 Route::get('/report/{day}', [WeeklyReportController::class, 'show']);
 Route::get('/report', [WeeklyReportController::class, 'index']);
+<<<<<<< HEAD
+=======
+
+>>>>>>> abdi
