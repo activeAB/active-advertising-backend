@@ -13,7 +13,8 @@ class FreelancerConroller extends Controller
     public function index()
     {
         //
-        $freelancer = Freelancer::all();
+        $freelancer = Freelancer::orderBy('created_at', 'desc')->get();
+
         return response()->json(
             $freelancer,
             200
@@ -42,8 +43,12 @@ class FreelancerConroller extends Controller
             'freelancer_email' => 'required',
             'freelancer_image_url' => 'required',
             'freelancer_portfolio_link' => 'required',
-            'freelancer_order_status' => 'required',
+        
         ]);
+        $checkUser =  $user = Freelancer::where('freelancer_email', $data['freelancer_email'])->first();
+        if ($checkUser) {
+            return response()->json(['message' => 'user exist'], 401);
+        }
         $freelancer = Freelancer::create($data);
         return response()->json([
             'data' => $freelancer,

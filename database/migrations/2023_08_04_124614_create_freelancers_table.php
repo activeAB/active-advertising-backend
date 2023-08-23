@@ -12,18 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('freelancers', function (Blueprint $table) {
-            
+
             $table->id();
             $table->string('freelancer_first_name');
             $table->string('freelancer_last_name');
             $table->string('freelancer_address');
             $table->string('freelancer_phone_number');
-            $table->string('freelancer_email');
+            $table->string('freelancer_email')->unique();
             $table->string('freelancer_image_url');
             $table->string('freelancer_portfolio_link');
-            $table->string('freelancer_order_status');
+            $table->string('freelancer_order_status')->default('pending');
             $table->timestamps();
-            
         });
     }
 
