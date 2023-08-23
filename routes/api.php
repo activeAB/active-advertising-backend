@@ -50,6 +50,7 @@ Route::post('/user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
 Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
+Route::get('/user/email/{email}', [UserController::class, 'userFind']);
 
 Route::post('/stock/add', [StockController::class, 'store']);
 Route::get('/stock', [StockController::class, 'index']);
