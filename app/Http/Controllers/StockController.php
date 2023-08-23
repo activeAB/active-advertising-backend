@@ -14,9 +14,10 @@ class StockController extends Controller
     {
         //
         $stock = Stock::all();
-        return response()->json([
-            'data' => $stock,
-        ], 200);
+        return response()->json(
+            $stock,
+            200
+        );
     }
 
     /**
@@ -34,20 +35,18 @@ class StockController extends Controller
     {
         //
         $data = $request->validate([
-            'item_description'=> 'required',
-            'quantity'=> 'required',
-            'unit_price'=> 'required',
-            'total_price'=> 'required',
-            'unit_measurement'=> 'required',
-            'purchase_date'=> 'required',
-            'expire_date'=> 'required',
-            'dealer_name'=> 'required',
+            'item_description' => 'required',
+            'quantity' => 'required',
+            'unit_price' => 'required',
+            'total_price' => 'required',
+            'unit_measurement' => 'required',
+            'purchase_date' => 'required',
+            'expire_date' => 'required',
+            'dealer_name' => 'required',
         ]);
 
         $stock = Stock::create($data);
-        return response()->json([
-            'data' => $stock,
-        ], 200);
+        return response()->json($stock, 200);
     }
 
     /**
@@ -74,20 +73,18 @@ class StockController extends Controller
     {
         //
         $data = $request->validate([
-            'item_description'=> 'required',
-            'quantity'=> 'required',
-            'unit_price'=> 'required',
-            'total_price'=> 'required',
-            'unit_measurement'=> 'required',
-            'purchase_date'=> 'required',
-            'expire_date'=> 'required',
-            'dealer_name'=> 'required',
+            'item_description' => 'required',
+            'quantity' => 'required',
+            'unit_price' => 'required',
+            'total_price' => 'required',
+            'unit_measurement' => 'required',
+            'purchase_date' => 'required',
+            'expire_date' => 'required',
+            'dealer_name' => 'required',
         ]);
         $stock = Stock::findOrFail($id);
         $stock->update($data);
-        return response()->json([
-            'data' => $stock,
-        ], 200);
+        return response()->json($stock, 200);
     }
 
     /**

@@ -30,7 +30,7 @@ class EmployeeController extends Controller
     }
 
     public function staffList(string $user_role){
-        $users = User::where('user_role', $user_role);
+        $users = User::where('user_role', $user_role)->get();
         return response()->json([
             'data' => $users,
         ], 200);

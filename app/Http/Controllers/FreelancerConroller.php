@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Freelancer;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,10 @@ class FreelancerConroller extends Controller
     {
         //
         $freelancer = Freelancer::all();
-        return response()->json([
-            'data' => $freelancer,
-        ], 200);
+        return response()->json(
+            $freelancer,
+            200
+        );
     }
 
     /**
@@ -33,20 +35,19 @@ class FreelancerConroller extends Controller
     {
         //
         $data = $request->validate([
-            'freelancer_first_name'=>'required',
-            'freelancer_last_name'=>'required',
-            'freelancer_address'=>'required',
-            'freelancer_phone_number'=>'required',
-            'freelancer_email'=>'required',
-            'freelancer_image_url'=>'required',
-            'freelancer_portfolio_link'=>'required',
-            'freelancer_order_status'=>'required',
+            'freelancer_first_name' => 'required',
+            'freelancer_last_name' => 'required',
+            'freelancer_address' => 'required',
+            'freelancer_phone_number' => 'required',
+            'freelancer_email' => 'required',
+            'freelancer_image_url' => 'required',
+            'freelancer_portfolio_link' => 'required',
+            'freelancer_order_status' => 'required',
         ]);
         $freelancer = Freelancer::create($data);
         return response()->json([
             'data' => $freelancer,
         ], 200);
-
     }
 
     /**
@@ -76,14 +77,14 @@ class FreelancerConroller extends Controller
     {
         //
         $data = $request->validate([
-            'freelancer_first_name'=>'required',
-            'freelancer_last_name'=>'required',
-            'freelancer_address'=>'required',
-            'freelancer_phone_number'=>'required',
+            'freelancer_first_name' => 'required',
+            'freelancer_last_name' => 'required',
+            'freelancer_address' => 'required',
+            'freelancer_phone_number' => 'required',
             'freelancer_email',
-            'freelancer_image_url'=>'required',
-            'freelancer_portfolio_link'=>'required',
-            'freelancer_order_status'=>'required',
+            'freelancer_image_url' => 'required',
+            'freelancer_portfolio_link' => 'required',
+            'freelancer_order_status' => 'required',
         ]);
 
         $freelancer = Freelancer::findOrFail($id);

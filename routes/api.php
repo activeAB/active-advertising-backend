@@ -72,7 +72,7 @@ Route::get('/account_manager', [AccountManagerController::class, 'index']);
 Route::get('/employee', [EmployeeController::class, 'index']); //it also used from employ profile
 Route::get('/employee/{user_role}', [EmployeeController::class, 'staffList']);
 Route::get('/employee/{user_order}/{id}', [EmployeeController::class, 'employeeOrder']);
-Route::get('/order/{id}', [EmployeeController::class, 'show']); // the controller is in the employeeController
+// Route::get('/order/{id}', [EmployeeController::class, 'show']); // the controller is in the employeeController
 
 Route::get('/agreement/{id}', [AgreementController::class, 'show']);
 

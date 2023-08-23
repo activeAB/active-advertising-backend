@@ -27,6 +27,7 @@ class PasswordResetController extends Controller
             ];
             return response()->json($data, 401);
         }
+        
         $resetCode = rand(1000, 9999);
         DB::table('password_resets')->insert([
             'user_email' => $user->user_email,

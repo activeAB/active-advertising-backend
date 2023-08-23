@@ -38,7 +38,7 @@ class UserController extends Controller
         }
         $data['user_password'] = bcrypt($data['user_password']);
         $user = User::create($data);
-        return response()->json(['message' => 'User Registered successfully'],200);
+        return response()->json(['message' => 'User Registered successfully'], 200);
     }
     public function login(Request $request)
     {
@@ -68,7 +68,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return $user;
     }
-
+   
     /**
      * Update the specified resource in storage.
      */
