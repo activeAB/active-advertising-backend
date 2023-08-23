@@ -99,4 +99,11 @@ class UserController extends Controller
         $user->delete();
         return $user;
     }
+
+    public function userFind(string $email){
+        $users = User::where('user_email', $email)->get();
+        return response()->json([
+            'data' => $users,
+        ], 200);
+    }
 }
