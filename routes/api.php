@@ -94,8 +94,6 @@ Route::put('/role/{id}', [RoleController::class, 'update']);
 Route::delete('/role/{id}', [RoleController::class, 'destroy']);
 
 
-
-Route::get('/generate-report', [WeeklyReportController::class, 'generateReport']);
-
+// Route::get('/generate-report', [WeeklyReportController::class, 'generateReport']);
 Route::get('/report/{day}', [WeeklyReportController::class, 'show']);
 Route::get('/report', [WeeklyReportController::class, 'index']);
