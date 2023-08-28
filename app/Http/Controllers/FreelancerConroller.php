@@ -14,7 +14,6 @@ class FreelancerConroller extends Controller
     {
         //
         $freelancer = Freelancer::orderBy('created_at', 'desc')->get();
-
         return response()->json(
             $freelancer,
             200

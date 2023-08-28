@@ -29,11 +29,20 @@ class EmployeeController extends Controller
         ], 200);
     }
 
-    public function staffList(string $user_role){
+    public function staffList(string $user_role)
+    {
+        if ($user_role == "all") {
+            $users = User::all();
+            return response()->json(
+                $users,
+                200
+            );
+        }
         $users = User::where('user_role', $user_role)->get();
-        return response()->json([
-            'data' => $users,
-        ], 200);
+        return response()->json(
+            $users,
+            200
+        );
     }
 
     /**
@@ -58,20 +67,21 @@ class EmployeeController extends Controller
     public function show(string $id)
     {
         //
-        $order = Order::where('id',$id)->get();
+        $order = Order::where('id', $id)->get();
         return response()->json([
             'data' => $order,
         ], 200);
     }
 
-    public function employeeOrder($user_role,$id){
-        if($user_role==="freelancer"){
+    public function employeeOrder($user_role, $id)
+    {
+        if ($user_role === "freelancer") {
             $orders = Order::where('freelancer_id', $id)->get();
             return response()->json([
                 'data' => $orders,
             ], 200);
         }
-        $orders = Order::where('user_id',$id)->get();
+        $orders = Order::where('user_id', $id)->get();
         return response()->json([
             'data' => $orders,
         ], 200);

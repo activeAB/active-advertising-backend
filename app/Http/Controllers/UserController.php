@@ -13,10 +13,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        return $user;
+
+        $user = User::orderBy('created_at', 'desc')->get();
+        return response()->json($user, 200);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -68,7 +69,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return $user;
     }
-   
+
     /**
      * Update the specified resource in storage.
      */
@@ -100,7 +101,8 @@ class UserController extends Controller
         return $user;
     }
 
-    public function userFind(string $email){
+    public function userFind(string $email)
+    {
         $users = User::where('user_email', $email)->get();
         return response()->json([
             'data' => $users,
