@@ -110,3 +110,6 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
 Route::post('/verifyCode', [PasswordResetController::class, 'checkCode']);
 Route::post('/changePassword', [PasswordResetController::class, 'changePassword']);
+
+
+Route::get('/order/employer/{id}', [OrderController::class, 'employer']);
