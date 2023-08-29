@@ -59,6 +59,14 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = $request->validate([
+            'status' => 'required',
+        ]);
+
+        $order = Order::findOrFail($id);
+        $order->update($data);
+
+        return response()->json($order, 200);
     }
 
     /**

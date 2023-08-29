@@ -22,11 +22,11 @@ class EmployeeController extends Controller
         $user = User::whereNotIn('user_role', $rolesToExclude)->get();
 
         $freelancer = Freelancer::all();
-
-        return response()->json([
-            'user' => $user,
-            'freelancer' => $freelancer,
-        ], 200);
+        $data =  array_merge($user->toArray(), $freelancer->toArray());
+        
+        return response()->json(
+            $data
+        , 200);
     }
 
     public function staffList(string $user_role)
