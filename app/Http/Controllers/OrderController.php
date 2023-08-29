@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Freelancer;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -78,5 +80,21 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $order->delete();
         return response()->json($order, 200);
+    }
+
+    public function employer(string $id){
+        // $order = Order::where('id', $id)->get();
+        $order = Order::find($id);
+        $freelancer = $order->freelancer_id;
+        $user= $order->user_id;
+        
+        if ($user != "none"){
+            $users = User::where('id', $user)->get();
+            return response()->json($users, 200);
+        }
+        if ($freelancer != "none"){
+            $freelancers = Freelancer::where('id', $freelancer)->get();
+            return response()->json($freelancers,200);
+        }
     }
 }
