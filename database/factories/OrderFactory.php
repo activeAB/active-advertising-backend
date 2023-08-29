@@ -25,7 +25,7 @@ class OrderFactory extends Factory
             'quantity' => $this->faker->numberBetween(1, 100),
             'unit_price' => $this->faker->randomFloat(2, 10, 100),
             'vendor_name' => $this->faker->name(),
-            'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
+            'status' => $this->faker->randomElement(['Unallocated', 'Allocated', 'Done']),
             'status_description' => $this->faker->sentence(),
             'proforma_id' => $this->faker->randomElement($proformas->pluck('id')),
             'freelancer_id' => $this->faker->randomElement($freelancers->pluck('id')),

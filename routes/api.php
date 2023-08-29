@@ -43,11 +43,12 @@ Route::middleware('auth:sanctum')->get('/user/verify', function () {
     }
     return auth()->user();
 });
+Route::post('/user', [UserController::class, 'store']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/user/{id}', [UserController::class, 'show']);
-    Route::post('/user', [UserController::class, 'store']);
     Route::put('/user/{id}', [UserController::class, 'update']);
     Route::delete('/user/{id}', [UserController::class, 'destroy']);
     Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
