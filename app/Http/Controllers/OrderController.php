@@ -88,11 +88,12 @@ class OrderController extends Controller
         $freelancer = $order->freelancer_id;
         $user= $order->user_id;
         
-        if ($user != "none"){
+
+        if ($user != "Unallocated"){
             $users = User::where('id', $user)->get();
             return response()->json($users, 200);
         }
-        if ($freelancer != "none"){
+        if ($freelancer != "Unallocated"){
             $freelancers = Freelancer::where('id', $freelancer)->get();
             return response()->json($freelancers,200);
         }
