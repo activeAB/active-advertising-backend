@@ -112,4 +112,5 @@ Route::post('/verifyCode', [PasswordResetController::class, 'checkCode']);
 Route::post('/changePassword', [PasswordResetController::class, 'changePassword']);
 
 
-Route::get('/order/employer/{id}', [OrderController::class, 'employer']);
+Route::get('/order/employer/{id}', [OrderController::class, 'employer']);//route for which user that the order is assigned
+Route::put('/proforma/status/{id}', [ProformaController::class, 'update']);
