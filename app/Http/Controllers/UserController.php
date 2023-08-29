@@ -11,11 +11,18 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
     public function index()
     {
+        $currentUser = auth()->user();
 
-        $user = User::orderBy('created_at', 'desc')->get();
-        return response()->json($user, 200);
+        // Get the user IDs of the users to exclude
+        $excludeUserIds = [$currentUser->id];
+
+        $users = User::where('id', '!=', $excludeUserIds) // Exclude the logged-in user
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        return response()->json($users, 200);
     }
 
     /**
