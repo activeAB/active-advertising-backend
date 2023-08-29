@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->get('/user/verify', function () {
 });
 Route::post('/user', [UserController::class, 'store']);
 
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/users', [UserController::class, 'index']);
