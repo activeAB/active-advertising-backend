@@ -13,11 +13,19 @@ class ProformaController extends Controller
      */
     public function index()
     {
-        $proforma = Proforma::orderBy('created_at', 'desc')->get();
-        foreach ($proforma as $item) {
+
+        $proformas = Proforma::with('Orders')->get();
+
+        foreach ($proformas as $proforma) {
+            $proforma->updateStatus();
+        }
+
+        $proform = Proforma::orderBy('created_at', 'desc')->get();
+        foreach ($proform as $item) {
             $item->formatted_created_at = date('Y-m-d', strtotime($item->created_at));
         }
-        return response()->json($proforma, 200);
+
+        return response()->json($proform, 200);
     }
 
     /**
@@ -128,4 +136,6 @@ class ProformaController extends Controller
         $proforma->delete();
         return response()->json($proforma, 200);
     }
+
+
 }
