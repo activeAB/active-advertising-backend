@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('total_price');
             $table->string("status")->default('pending');
             $table->string("total_profit");
+            $table->string("description")->nullable();
             $table->timestamps();
         });
     }
