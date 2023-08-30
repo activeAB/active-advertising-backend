@@ -18,11 +18,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-       
+
             'user_first_name' => $this->faker->firstName,
             'user_last_name' => $this->faker->lastName,
             'user_email' => $this->faker->unique()->safeEmail,
-            'user_role' => $this->faker->randomElement(['admin', 'user','account_manager', 'designer']),
+            'user_role' => $this->faker->randomElement(['admin', 'user', 'account_manager', 'designer']),
             'user_phone_number' => $this->faker->phoneNumber,
             'user_address' => $this->faker->address,
             'user_image_url' => $this->faker->imageUrl(200, 200, 'people'),
