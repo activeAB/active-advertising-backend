@@ -69,6 +69,7 @@ class ProformaController extends Controller
             'orders.*.quantity' => 'required',
             'orders.*.unit_price' => 'required',
             'orders.*.vendor_name' => 'required',
+
         ]);
 
         try {
@@ -81,7 +82,7 @@ class ProformaController extends Controller
                 $order->save();
             }
 
-            return response()->json(['message' => 'Data stored successfully'], 200);
+            return response()->json($proforma, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while storing data'], 500);
         }
@@ -136,6 +137,4 @@ class ProformaController extends Controller
         $proforma->delete();
         return response()->json($proforma, 200);
     }
-
-
 }
