@@ -29,7 +29,17 @@ class Basic_infoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateBasicInfo = $request->validate([
+            "active_tin_nUmber" => 'required',
+            "active_account_number" => 'required',
+            "active_vat" => 'required',
+            "active_phone_number" => 'required',
+            "active_email" => 'required',
+        ]);
+        $basic_info = Basic_info::create($validateBasicInfo);
+        return response()->json([
+            'data' => $basic_info,
+        ], 200);
     }
 
     /**

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string("payment_method");
             $table->string("contact_person");
             $table->string('total_price');
-            $table->string("status")->default('pending');
+            $table->string("status")->default('Pending');
             $table->string("total_profit");
             $table->timestamps();
         });

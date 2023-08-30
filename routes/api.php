@@ -67,7 +67,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/freelancer/{id}', [FreelancerConroller::class, 'update']);
     Route::delete('/freelancer/{id}', [FreelancerConroller::class, 'destroy']);
 
+
     Route::get('/basic_info', [Basic_infoController::class, 'index']);
+    Route::post('/basic_info', [Basic_infoController::class, 'store']);
     Route::put('/basic_info/{id}', [Basic_infoController::class, 'update']);
     Route::get('/freelancer/{id}', [FreelancerConroller::class, 'show']);
 
