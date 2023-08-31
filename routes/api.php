@@ -54,7 +54,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
     Route::get('/user/email/{email}', [UserController::class, 'userFind']);
 
-
     // Not done
     Route::post('/stock/add', [StockController::class, 'store']);
     Route::get('/stock', [StockController::class, 'index']);
@@ -75,9 +74,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/account_manager', [AccountManagerController::class, 'index']);
     Route::get('/employee', [EmployeeController::class, 'index']); //it also used from employ profile
     Route::get('/employee/{user_role}', [EmployeeController::class, 'staffList']);
-    Route::get('/employee/{user_order}/{id}', [EmployeeController::class, 'employeeOrder']);//it shows the order that is assigned right now and there status is allocated not both unallocated and done
-    Route::get('/employeeAllOrder/{user_order}/{id}', [EmployeeController::class, 'employeeAllOrder']);//it shows the all history of order that assigned to the employer
+    Route::get('/employee/{user_order}/{id}', [EmployeeController::class, 'employeeOrder']); //it shows the order that is assigned right now and there status is allocated not both unallocated and done
+    Route::get('/employeeAllOrder/{user_order}/{id}', [EmployeeController::class, 'employeeAllOrder']); //it shows the all history of order that assigned to the employer
     // Route::get('/order/{id}', [EmployeeController::class, 'show']); // the controller is in the employeeController
+    Route::get('/order/employer/{id}', [OrderController::class, 'employer']); //route for which user that the order is assigned
 
     Route::get('/agreement/{id}', [AgreementController::class, 'show']);
 
@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/proforma/{id}', [ProformaController::class, 'destroy']);
 
     Route::get('/order/{id}', [OrderController::class, 'show']);
+    Route::put('/order/{id}', [OrderController::class, 'update']);
     Route::delete('/order/{id}', [OrderController::class, 'destroy']);
     Route::get('/order', [OrderController::class, 'index']);
 
@@ -111,7 +112,3 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
 Route::post('/verifyCode', [PasswordResetController::class, 'checkCode']);
 Route::post('/changePassword', [PasswordResetController::class, 'changePassword']);
-
-
-Route::get('/order/employer/{id}', [OrderController::class, 'employer']);//route for which user that the order is assigned
-

@@ -59,6 +59,7 @@ class ProformaController extends Controller
             "contact_person" => 'required',
             "total_price" => 'required',
             "total_profit" => 'required',
+            "status"=>'required'
         ]);
 
         // Validate the order data (assuming you're sending an array of orders)
@@ -69,6 +70,7 @@ class ProformaController extends Controller
             'orders.*.quantity' => 'required',
             'orders.*.unit_price' => 'required',
             'orders.*.vendor_name' => 'required',
+            'orders*.status'=>'required'
 
         ]);
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('quantity');
             $table->string('unit_price');
             $table->string('vendor_name');
-            $table->string('status')->default('Unallocated');
+            $table->string('status')->default("Unallocated");
             $table->string('status_description')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('proforma_id');

@@ -41,9 +41,8 @@ class Proforma extends Model
         $orderStatuses = $this->orders()->pluck('status')->toArray();
 
         if (count($orderStatuses) > 0 && !in_array('Unallocated', $orderStatuses) && !in_array('Allocated', $orderStatuses)) {
-            $this->status = 'Completed';
+            $this->status = "Completed";
             $this->save();
         }
     }
-
 }
