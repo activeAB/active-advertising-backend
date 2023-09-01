@@ -173,7 +173,7 @@ class EmployeeController extends Controller
 
         $rolesToExclude = ['admin', 'account_manager'];
         $user = User::whereNotIn('user_role', $rolesToExclude)->get();
-        $data =  array_merge($users->toArray(), $freelancers->toArray());
+        $data =  array_merge($user->toArray(), $freelancers->toArray());
         
         return response()->json(
             $data
