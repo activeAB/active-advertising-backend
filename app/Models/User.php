@@ -21,5 +21,6 @@ class User extends Authenticatable
         'user_address',
         'user_image_url',
         'user_password',
+        'status'
     ];
 }

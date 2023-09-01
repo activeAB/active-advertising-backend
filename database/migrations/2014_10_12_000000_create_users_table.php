@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('user_address');
             $table->string('user_image_url');
             $table->string('user_password');
+            $table->string('status')->default('Unallocated');
             $table->timestamps();
         });
     }

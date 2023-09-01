@@ -16,6 +16,7 @@ class Freelancer extends Model
         'freelancer_email',
         'freelancer_image_url',
         'freelancer_portfolio_link',
-        'freelancer_order_status'
+        'freelancer_order_status',
+        'status'
     ];
 }

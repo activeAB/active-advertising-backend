@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('freelancer_image_url');
             $table->string('freelancer_portfolio_link');
             $table->string('freelancer_order_status')->default('pending');
+            $table->string('status')->default('Unallocated');
             $table->timestamps();
         });
     }
