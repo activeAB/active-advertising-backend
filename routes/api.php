@@ -76,6 +76,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/employee/{user_role}', [EmployeeController::class, 'staffList']);
     Route::get('/employee/{user_order}/{id}', [EmployeeController::class, 'employeeOrder']); //it shows the order that is assigned right now and there status is allocated not both unallocated and done
     Route::get('/employeeAllOrder/{user_order}/{id}', [EmployeeController::class, 'employeeAllOrder']); //it shows the all history of order that assigned to the employer
+    Route::get('/employeeList/staff', [EmployeeController::class, 'employeeListStaff']);
+    Route::get('/employeeList/freelancer', [EmployeeController::class, 'employeeListFreelancer']);
+
     // Route::get('/order/{id}', [EmployeeController::class, 'show']); // the controller is in the employeeController
     Route::get('/order/employer/{id}', [OrderController::class, 'employer']); //route for which user that the order is assigned
 
@@ -112,5 +115,3 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
 Route::post('/verifyCode', [PasswordResetController::class, 'checkCode']);
 Route::post('/changePassword', [PasswordResetController::class, 'changePassword']);
-
-Route::get('/employeeList',[EmployeeController::class, 'employeeList']);
