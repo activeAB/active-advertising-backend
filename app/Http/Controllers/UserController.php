@@ -83,14 +83,14 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->validate([
-            'user_first_name' => 'required',
-            'user_last_name' => 'required',
+            'user_first_name',
+            'user_last_name',
             'user_email',
-            'user_role' => 'required',
-            'user_phone_number' => 'required',
-            'user_address' => 'required',
-            'user_image_url' => 'required',
-            'user_password' => 'required',
+            'user_role',
+            'user_phone_number',
+            'user_address',
+            'user_image_url',
+            'user_password',
         ]);
         $user = User::findOrFail($id);
         $data['user_password'] = bcrypt($data['user_password']);
