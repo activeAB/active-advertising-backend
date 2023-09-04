@@ -89,8 +89,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/proforma/{id}', [ProformaController::class, 'destroy']);
 
     Route::get('/order/{id}', [OrderController::class, 'show']);
-    Route::put('/orderStaff/{id}', [OrderController::class, 'updateStaff']);
-    Route::put('/orderFreelancer/{id}', [OrderController::class, 'updateFreelancer']);
+    Route::put('/orderStaff', [OrderController::class, 'updateStaff']);
+    Route::put('/orderFreelancer', [OrderController::class, 'updateFreelancer']);
     Route::delete('/order/{id}', [OrderController::class, 'destroy']);
     Route::get('/order', [OrderController::class, 'index']);
 
@@ -114,4 +114,5 @@ Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
 Route::post('/verifyCode', [PasswordResetController::class, 'checkCode']);
 Route::post('/changePassword', [PasswordResetController::class, 'changePassword']);
 
-Route::get('/employeeList',[EmployeeController::class, 'employeeListStaff']);
+Route::get('/employeeListStaff',[EmployeeController::class, 'employeeListStaff']);
+Route::get('/employeeListFreelancer',[EmployeeController::class, 'employeeListFreelancer']);

@@ -58,27 +58,23 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateStaff(Request $request, string $id)
+    public function updateStaff(Request $request)
     {
         
-        $order = Order::findOrFail($id);
+        
 
         $data = $request->validate([
             'status' => 'required',
             'user_id' => 'sometimes|nullable|exists:users,id', // Validate if user_id exists in the 'users' table
+            'order_id' => 'required'
         ]);
+
+        $order = Order::findOrFail($data['order_id']);
 
         $order->update([
             'status' => $data['status'],
         ]);
 
-        // Update the relationship between the order and the user (if 'user_id' is provided)
-        
-        // if (isset($data['user_id'])) {
-        //     // Attach the order to the specified user
-        //     $order->user()->associate(User::findOrFail($data['user_id']));
-        //     $order->save();
-        // }
 
         // Check if 'user_id' is not null, then update the relationship between the order and the user
         if (!is_null($data['user_id'])) {
@@ -109,14 +105,14 @@ class OrderController extends Controller
         return response()->json($order, 200);
     }
 
-    public function updateFreelancer(Request $request, string $id){
-
-        $order = Order::findOrFail($id);
+    public function updateFreelancer(Request $request){
 
         $data = $request->validate([
             'status' => 'required',
             'freelancer_id'=> 'sometimes|nullable|exists:freelancers,id', // Validate if user_id exists in the 'users' table
+            'order_id'=>'required'
         ]);
+        $order = Order::findOrFail($data['order_id']);
 
         $order->update([
             'status' => $data['status'],
