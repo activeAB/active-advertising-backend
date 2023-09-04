@@ -58,94 +58,94 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateStaff(Request $request)
-    {
+    // public function updateStaff(Request $request)
+    // {
         
         
 
-        $data = $request->validate([
-            'status' => 'required',
-            'user_id' => 'sometimes|nullable|exists:users,id', // Validate if user_id exists in the 'users' table
-            'order_id' => 'required'
-        ]);
+    //     $data = $request->validate([
+    //         'status' => 'required',
+    //         'user_id' => 'sometimes|nullable|exists:users,id', // Validate if user_id exists in the 'users' table
+    //         'order_id' => 'required'
+    //     ]);
 
-        $order = Order::findOrFail($data['order_id']);
+    //     $order = Order::findOrFail($data['order_id']);
 
-        $order->update([
-            'status' => $data['status'],
-        ]);
+    //     $order->update([
+    //         'status' => $data['status'],
+    //     ]);
 
 
-        // Check if 'user_id' is not null, then update the relationship between the order and the user
-        if (!is_null($data['user_id'])) {
-            // Attach the order to the specified user
-            $order->user()->associate(User::findOrFail($data['user_id']));
-            $order->save();
-        } else {
-            // If 'user_id' is null, you can disassociate the order from any user
-            $order->user()->dissociate();
-            $order->save();
-        }
+    //     // Check if 'user_id' is not null, then update the relationship between the order and the user
+    //     if (!is_null($data['user_id'])) {
+    //         // Attach the order to the specified user
+    //         $order->user()->associate(User::findOrFail($data['user_id']));
+    //         $order->save();
+    //     } else {
+    //         // If 'user_id' is null, you can disassociate the order from any user
+    //         $order->user()->dissociate();
+    //         $order->save();
+    //     }
 
-        // Check if the status is 'Allocated' and update the user
-        if ($data['status'] === 'Allocated') {
-            // Assuming there's a 'user_id' field in the order model
-            $user_id = $order->user_id;
+    //     // Check if the status is 'Allocated' and update the user
+    //     if ($data['status'] === 'Allocated') {
+    //         // Assuming there's a 'user_id' field in the order model
+    //         $user_id = $order->user_id;
 
-            // Fetch the user by user_id or return a 404 error if not found
-            $user = User::findOrFail($user_id);
+    //         // Fetch the user by user_id or return a 404 error if not found
+    //         $user = User::findOrFail($user_id);
 
-            // Update the user (you should adjust this part as needed)
-            $user->update([
-                'status' => 'Allocated', // You may need to modify this based on your User model
-            ]);
-        }
+    //         // Update the user (you should adjust this part as needed)
+    //         $user->update([
+    //             'status' => 'Allocated', // You may need to modify this based on your User model
+    //         ]);
+    //     }
 
-        // Return a JSON response with the updated order
-        return response()->json($order, 200);
-    }
+    //     // Return a JSON response with the updated order
+    //     return response()->json($order, 200);
+    // }
 
-    public function updateFreelancer(Request $request){
+    // public function updateFreelancer(Request $request){
 
-        $data = $request->validate([
-            'status' => 'required',
-            'freelancer_id'=> 'sometimes|nullable|exists:freelancers,id', // Validate if user_id exists in the 'users' table
-            'order_id'=>'required'
-        ]);
-        $order = Order::findOrFail($data['order_id']);
+    //     $data = $request->validate([
+    //         'status' => 'required',
+    //         'freelancer_id'=> 'sometimes|nullable|exists:freelancers,id', // Validate if user_id exists in the 'users' table
+    //         'order_id'=>'required'
+    //     ]);
+    //     $order = Order::findOrFail($data['order_id']);
 
-        $order->update([
-            'status' => $data['status'],
-        ]);
+    //     $order->update([
+    //         'status' => $data['status'],
+    //     ]);
 
-        // Check if 'user_id' is not null, then update the relationship between the order and the user
-        if (!is_null($data['freelancer_id'])) {
-            // Attach the order to the specified user
-            $order->freelancer()->associate(Freelancer::findOrFail($data['freelancer_id']));
-            $order->save();
-        } else {
-            // If 'user_id' is null, you can disassociate the order from any user
-            $order->freelancer()->dissociate();
-            $order->save();
-        }
+    //     // Check if 'user_id' is not null, then update the relationship between the order and the user
+    //     if (!is_null($data['freelancer_id'])) {
+    //         // Attach the order to the specified user
+    //         $order->freelancer()->associate(Freelancer::findOrFail($data['freelancer_id']));
+    //         $order->save();
+    //     } else {
+    //         // If 'user_id' is null, you can disassociate the order from any user
+    //         $order->freelancer()->dissociate();
+    //         $order->save();
+    //     }
 
-        // Check if the status is 'Allocated' and update the freelancer
-        if ($data['status'] === 'Allocated') {
-            // Assuming there's a 'freelancer_id' field in the order model
-            $freelancer_id = $order->freelancer_id;
+    //     // Check if the status is 'Allocated' and update the freelancer
+    //     if ($data['status'] === 'Allocated') {
+    //         // Assuming there's a 'freelancer_id' field in the order model
+    //         $freelancer_id = $order->freelancer_id;
 
-            // Fetch the user by freelancer_id or return a 404 error if not found
-            $freelancer = Freelancer::findOrFail($freelancer_id);
+    //         // Fetch the user by freelancer_id or return a 404 error if not found
+    //         $freelancer = Freelancer::findOrFail($freelancer_id);
 
-            // Update the freelancer (you should adjust this part as needed)
-            $freelancer->update([
-                'status' => 'Allocated', // You may need to modify this based on your Freelancer model
-            ]);
-        }
+    //         // Update the freelancer (you should adjust this part as needed)
+    //         $freelancer->update([
+    //             'status' => 'Allocated', // You may need to modify this based on your Freelancer model
+    //         ]);
+    //     }
 
-        // Return a JSON response with the updated order
-        return response()->json($order, 200);
-    }
+    //     // Return a JSON response with the updated order
+    //     return response()->json($order, 200);
+    // }
 
 
     /**
