@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Order;
+use App\Models\Freelancer;
 
 class UserController extends Controller
 {
@@ -73,6 +75,54 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        $users = User::all();
+        foreach ($users as $user) {
+            $allocated = false;
+            $orders = Order::where('user_id', $user->id)->get();
+
+            foreach ($orders as $order) {
+                if ($order->status === 'Allocated') {
+                    $allocated = true;
+                    break;
+                }
+            }
+
+            if ($allocated) {
+                // Update user status to "allocated"
+                $user->status = 'Allocated';
+                $user->save();
+            } else {
+                // Update user status to "unallocated"
+                $user->status = 'Unallocated';
+                $user->save();
+            }
+        }
+
+        $freelancers = Freelancer::all();
+        foreach ($freelancers as $freelancer) {
+            $allocated = false;
+            $orders = Order::where('freelancer_id', $freelancer->id)->get();
+
+            foreach ($orders as $order) {
+                if (($order->status !== 'Done') and ($order->status !== 'Cancelled')) {
+                    $allocated = true;
+                    break;
+                }
+            }
+
+            if ($allocated) {
+                // Update user status to "allocated"
+                $freelancer->status = 'Allocated';
+                $freelancer->save();
+            } else {
+                // Update user status to "unallocated"
+                $freelancer->status = 'Unallocated';
+                $freelancer->save();
+            }
+        }
+
+
+
         $user = User::findOrFail($id);
         return $user;
     }

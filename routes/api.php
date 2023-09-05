@@ -90,8 +90,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/proforma/{id}', [ProformaController::class, 'destroy']);
 
     Route::get('/order/{id}', [OrderController::class, 'show']);
-    // Route::put('/orderStaff/', [OrderController::class, 'updateStaff']);
-    // Route::put('/orderFreelancer', [OrderController::class, 'updateFreelancer']);
+    Route::put('/orderStaff', [OrderController::class, 'updateStaff']);
+    Route::put('/orderFreelancer', [OrderController::class, 'updateFreelancer']);
     Route::delete('/order/{id}', [OrderController::class, 'destroy']);
     Route::get('/order', [OrderController::class, 'index']);
 
