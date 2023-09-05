@@ -42,7 +42,7 @@ class FreelancerConroller extends Controller
             'freelancer_email' => 'required',
             'freelancer_image_url' => 'required',
             'freelancer_portfolio_link' => 'required',
-        
+
         ]);
         $checkUser =  $user = Freelancer::where('freelancer_email', $data['freelancer_email'])->first();
         if ($checkUser) {
@@ -61,9 +61,10 @@ class FreelancerConroller extends Controller
     {
         //
         $freelancer = Freelancer::findOrFail($id);
-        return response()->json([
-            'data' => $freelancer,
-        ], 200);
+        return response()->json(
+            $freelancer,
+            200
+        );
     }
 
     /**

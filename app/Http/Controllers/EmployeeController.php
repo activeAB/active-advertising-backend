@@ -78,28 +78,32 @@ class EmployeeController extends Controller
     {
         if ($user_role === "freelancer") {
             $orders = Order::where('freelancer_id', $id)->get();
-            return response()->json([
-                'data' => $orders,
-            ], 200);
+            return response()->json(
+                $orders,
+                200
+            );
         }
         $orders = Order::where('user_id', $id)->get();
-        return response()->json([
-            'data' => $orders,
-        ], 200);
+        return response()->json(
+            $orders,
+            200
+        );
     }
 
     public function employeeOrder($user_role, $id)
     {
         if ($user_role === "freelancer") {
             $orders = Order::where('freelancer_id', $id)->where('status', 'Allocated')->get();
-            return response()->json([
-                'data' => $orders,
-            ], 200);
+            return response()->json(
+                $orders,
+                200
+            );
         }
         $orders = Order::where('user_id', $id)->where('status', 'Allocated')->get();
-        return response()->json([
-            'data' => $orders,
-        ], 200);
+        return response()->json(
+            $orders,
+            200
+        );
     }
 
     /**
