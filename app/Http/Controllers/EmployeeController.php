@@ -134,7 +134,7 @@ class EmployeeController extends Controller
             $orders = Order::where('user_id', $user->id)->get();
 
             foreach ($orders as $order) {
-                if (($order->status !== 'Done') and ($order->status !== 'Cancelled')) {
+                if ($order->status === 'Allocated') {
                     $allocated = true;
                     break;
                 }
