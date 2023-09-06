@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Freelancer;
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class FreelancerConroller extends Controller
 {
@@ -60,6 +61,30 @@ class FreelancerConroller extends Controller
     public function show(string $id)
     {
         //
+        $freelancers = Freelancer::all();
+        foreach ($freelancers as $freelancer) {
+            $allocated = false;
+            $orders = Order::where('freelancer_id', $freelancer->id)->get();
+
+            foreach ($orders as $order) {
+                if (($order->status !== 'Done') and ($order->status !== 'Cancelled')) {
+                    $allocated = true;
+                    break;
+                }
+            }
+
+            if ($allocated) {
+                // Update user status to "allocated"
+                $freelancer->status = 'Allocated';
+                $freelancer->save();
+            } else {
+                // Update user status to "unallocated"
+                $freelancer->status = 'Unallocated';
+                $freelancer->save();
+            }
+        }
+
+
         $freelancer = Freelancer::findOrFail($id);
         return response()->json([
             'data' => $freelancer,
