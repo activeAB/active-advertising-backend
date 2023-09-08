@@ -33,13 +33,13 @@ class EmployeeController extends Controller
     public function staffList(string $user_role)
     {
         if ($user_role == "all") {
-            $users = User::all();
+            $users = User::all()->sortByDesc('updated_at');
             return response()->json(
                 $users,
                 200
             );
         }
-        $users = User::where('user_role', $user_role)->get();
+        $users = User::where('user_role', $user_role)->sortByDesc('updated_at')->get();
         return response()->json(
             $users,
             200
