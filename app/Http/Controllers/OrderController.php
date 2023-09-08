@@ -166,11 +166,11 @@ class OrderController extends Controller
         $user= $order->user_id;
         
 
-        if ($user != "Unallocated"){
+        if ($user != null){
             $users = User::where('id', $user)->get();
             return response()->json($users, 200);
         }
-        if ($freelancer != "Unallocated"){
+        if ($freelancer != null){
             $freelancers = Freelancer::where('id', $freelancer)->get();
             return response()->json($freelancers,200);
         }
