@@ -60,8 +60,6 @@ class OrderController extends Controller
     public function updateStaff(Request $request)
     {
 
-
-
         $data = $request->validate([
             'status' => 'required',
             'user_id' => 'sometimes|nullable|exists:users,id', // Validate if user_id exists in the 'users' table

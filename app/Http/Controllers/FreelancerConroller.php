@@ -67,7 +67,7 @@ class FreelancerConroller extends Controller
             $orders = Order::where('freelancer_id', $freelancer->id)->get();
 
             foreach ($orders as $order) {
-                if (($order->status !== 'Done') and ($order->status !== 'Cancelled')) {
+                if ($order->status === 'Allocated') {
                     $allocated = true;
                     break;
                 }
