@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/employee/{user_order}/{id}', [EmployeeController::class, 'employeeOrder']); //it shows the order that is assigned right now and there status is allocated not both unallocated and done
     Route::get('/employeeAllOrder/{user_order}/{id}', [EmployeeController::class, 'employeeAllOrder']); //it shows the all history of order that assigned to the employer
     // Route::get('/order/{id}', [EmployeeController::class, 'show']); // the controller is in the employeeController
-    Route::get('/order/employer/{id}', [OrderController::class, 'employer']); //route for which user that the order is assigned
+    
     Route::get('/employeeList/staff', [EmployeeController::class, 'employeeListStaff']);
     Route::get('/employeeList/freelancer', [EmployeeController::class, 'employeeListFreelancer']);
     Route::get('/agreement/{id}', [AgreementController::class, 'show']);
@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/orderFreelancer', [OrderController::class, 'updateFreelancer']);
     Route::delete('/order/{id}', [OrderController::class, 'destroy']);
     Route::get('/order', [OrderController::class, 'index']);
-
+    Route::get('/order/employer/{id}', [OrderController::class, 'employer']); //route for which user that the order is assigned
 
     Route::post('/role/add', [RoleController::class, 'store']);
     Route::get('/role', [RoleController::class, 'index']);
