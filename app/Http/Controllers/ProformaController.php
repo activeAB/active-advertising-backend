@@ -125,7 +125,7 @@ class ProformaController extends Controller
         $proforma = Proforma::findOrFail($id);
         $proforma->update($data);
 
-        if ($data["status"] === "Cancelled") {
+        if ($data["status"] === "Canceled") {
             $orders = Order::where("proforma_id", $id)->get();
             
             foreach ($orders as $order) {
