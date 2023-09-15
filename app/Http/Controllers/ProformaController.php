@@ -118,7 +118,6 @@ class ProformaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $data = $request->validate([
             'status' => 'required',
         ]);
@@ -126,8 +125,19 @@ class ProformaController extends Controller
         $proforma = Proforma::findOrFail($id);
         $proforma->update($data);
 
+        if ($data["status"] === "Canceled") {
+            $orders = Order::where("proforma_id", $id)->get();
+            
+            foreach ($orders as $order) {
+                $order->update([
+                    'status' => 'Unallocated',
+                ]);
+            }
+        }
+
         return response()->json($proforma, 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
