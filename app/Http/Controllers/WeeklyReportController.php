@@ -117,8 +117,38 @@ class weeklyReportController extends Controller
             return response()->json(['message' => 'No report found for the specified day'], 404);
         }
 
-        return response()->json($report);
+        $mondayData = json_decode($report['monday'], true);
+        $tuesdayData = json_decode($report['monday'], true);
+        $wednesdayData = json_decode($report['monday'], true);
+        $thursdayData = json_decode($report['monday'], true);
+        $fridayData = json_decode($report['monday'], true);
+        $saturdayData = json_decode($report['monday'], true);
+        $sundayData = json_decode($report['monday'], true);
 
+        $dailyTotals = [
+            'monday_profit' =>$mondayData[0],
+            'monday_price' =>$mondayData[1],
+            'tuesday_profit' =>$tuesdayData[0],
+            'tuesday_price' =>$tuesdayData[1],
+            'wednesday_profit' =>$wednesdayData[0],
+            'wednesday_price' =>$wednesdayData[1],
+            'thursday_profit' =>$thursdayData[0],
+            'thursday_price' =>$thursdayData[1],
+            'friday_profit' =>$fridayData[0],
+            'friday_price' =>$fridayData[1],
+            'saturday_profit' =>$saturdayData[0],
+            'saturday_price' =>$saturdayData[1],
+            'sunday_profit' =>$sundayData[0],
+            'sunday_price' =>$sundayData[1],
+        ];
+
+        // Remove the daily totals from the main report object
+        unset($report->monday, $report->tuesday, $report->wednesday, $report->thursday, $report->friday, $report->saturday, $report->sunday);
+
+        // Add the daily_totals to the main report object
+        $report->daily_totals = $dailyTotals;
+
+        return response()->json($report);
     }
 
     /**
