@@ -61,18 +61,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/stock/{id}', [StockController::class, 'destroy']);
 
     Route::post('/freelancer/add', [FreelancerConroller::class, 'store']);
-    Route::get('/freelancer', [FreelancerConroller::class, 'index']);
+    //Route::get('/freelancer', [FreelancerConroller::class, 'index']);
     Route::put('/freelancer/{id}', [FreelancerConroller::class, 'update']);
     Route::delete('/freelancer/{id}', [FreelancerConroller::class, 'destroy']);
-
+    Route::get('/freelancer/{id}', [FreelancerConroller::class, 'show']);
 
     Route::get('/basic_info', [Basic_infoController::class, 'index']);
     Route::post('/basic_info', [Basic_infoController::class, 'store']);
     Route::put('/basic_info/{id}', [Basic_infoController::class, 'update']);
-    Route::get('/freelancer/{id}', [FreelancerConroller::class, 'show']);
 
-    Route::get('/account_manager', [AccountManagerController::class, 'index']);
-    Route::get('/employee', [EmployeeController::class, 'index']); //it also used from employ profile
+    //Route::get('/account_manager', [AccountManagerController::class, 'index']);
+    //Route::get('/employee', [EmployeeController::class, 'index']); //it also used from employ profile
     Route::get('/employee/{user_role}', [EmployeeController::class, 'staffList']);
     Route::get('/employee/{user_order}/{id}', [EmployeeController::class, 'employeeOrder']); //it shows the order that is assigned right now and there status is allocated not both unallocated and done
     Route::get('/employeeAllOrder/{user_order}/{id}', [EmployeeController::class, 'employeeAllOrder']); //it shows the all history of order that assigned to the employer
