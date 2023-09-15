@@ -36,6 +36,7 @@ class ReportFactory extends Factory
             'friday' => json_encode([$this->faker->randomNumber(), $this->faker->randomNumber()]),
             'saturday' => json_encode([$this->faker->randomNumber(), $this->faker->randomNumber()]),
             'sunday' => json_encode([$this->faker->randomNumber(), $this->faker->randomNumber()]),
+            
         ];
     }
 }
