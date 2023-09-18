@@ -27,16 +27,16 @@ class weeklyReportController extends Controller
             ->groupBy('client_tin_number')
             ->select('client_tin_number', DB::raw('COUNT(*) as count'))
             ->count();
-        $approved = Proforma::where('status', 'verified')
+        $approved = Proforma::where('status', 'Verified')
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
-        $allocated = Proforma::where('status', 'allocated')
+        $allocated = Order::where('status', 'Allocated')
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
         $delivered = Proforma::where('status', 'delivered')
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
-        $completedOrder = Proforma::where('status', 'done')
+        $completedOrder = Proforma::where('status', 'Completed')
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
         $totalRevenue = Proforma::whereBetween('created_at', [$startDate, $endDate])->sum('total_price');
@@ -74,16 +74,16 @@ class weeklyReportController extends Controller
             'daily_totals' => $dayTotals,
         ];
 
-        return response()->json($weeklyReport);
+        return response()->json($weeklyReport, 200);
     }
 
 
-    
+
 
     public function generateReport()
     {
         Artisan::call('report:generate');
-        return response()->json(['message' => 'Report generation started.']);
+        return response()->json(['message' => 'Report generation started.'], 404);
     }
 
     /**
@@ -92,7 +92,7 @@ class weeklyReportController extends Controller
     public function create()
     {
         //
-        $report =Report::all();
+        $report = Report::all();
         return $report;
     }
 
@@ -111,8 +111,8 @@ class weeklyReportController extends Controller
     {
         //
         $report = Report::whereDate('start_date', '<=', $day)
-                        ->whereDate('end_date', '>=', $day)
-                        ->first();
+            ->whereDate('end_date', '>=', $day)
+            ->first();
         if (!$report) {
             return response()->json(['message' => 'No report found for the specified day'], 404);
         }
@@ -126,20 +126,20 @@ class weeklyReportController extends Controller
         $sundayData = json_decode($report['monday'], true);
 
         $dailyTotals = [
-            'monday_profit' =>$mondayData[0],
-            'monday_price' =>$mondayData[1],
-            'tuesday_profit' =>$tuesdayData[0],
-            'tuesday_price' =>$tuesdayData[1],
-            'wednesday_profit' =>$wednesdayData[0],
-            'wednesday_price' =>$wednesdayData[1],
-            'thursday_profit' =>$thursdayData[0],
-            'thursday_price' =>$thursdayData[1],
-            'friday_profit' =>$fridayData[0],
-            'friday_price' =>$fridayData[1],
-            'saturday_profit' =>$saturdayData[0],
-            'saturday_price' =>$saturdayData[1],
-            'sunday_profit' =>$sundayData[0],
-            'sunday_price' =>$sundayData[1],
+            'monday_profit' => $mondayData[0],
+            'monday_price' => $mondayData[1],
+            'tuesday_profit' => $tuesdayData[0],
+            'tuesday_price' => $tuesdayData[1],
+            'wednesday_profit' => $wednesdayData[0],
+            'wednesday_price' => $wednesdayData[1],
+            'thursday_profit' => $thursdayData[0],
+            'thursday_price' => $thursdayData[1],
+            'friday_profit' => $fridayData[0],
+            'friday_price' => $fridayData[1],
+            'saturday_profit' => $saturdayData[0],
+            'saturday_price' => $saturdayData[1],
+            'sunday_profit' => $sundayData[0],
+            'sunday_price' => $sundayData[1],
         ];
 
         // Remove the daily totals from the main report object
@@ -148,7 +148,7 @@ class weeklyReportController extends Controller
         // Add the daily_totals to the main report object
         $report->daily_totals = $dailyTotals;
 
-        return response()->json($report);
+        return response()->json($report, 200);
     }
 
     /**
@@ -175,6 +175,4 @@ class weeklyReportController extends Controller
     {
         //
     }
-
-
 }

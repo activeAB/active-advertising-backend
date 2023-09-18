@@ -11,7 +11,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index()
     {
         $currentUser = auth()->user();
@@ -20,8 +20,8 @@ class UserController extends Controller
         $excludeUserIds = [$currentUser->id];
 
         $users = User::where('id', '!=', $excludeUserIds) // Exclude the logged-in user
-                    ->orderBy('created_at', 'desc')
-                    ->get();
+            ->orderBy('created_at', 'desc')
+            ->get();
         return response()->json($users, 200);
     }
 
@@ -83,20 +83,26 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->validate([
-            'user_first_name',
-            'user_last_name',
-            'user_email',
+            'user_first_name' => 'required',
+            'user_last_name' => 'required',
+            'user_email' => 'email',
             'user_role',
-            'user_phone_number',
-            'user_address',
+            'user_phone_number' => 'required',
+            'user_address' => 'required',
             'user_image_url',
-            'user_password',
+            'user_password', // Allow user_password to be optionally updated
         ]);
+
         $user = User::findOrFail($id);
-        $data['user_password'] = bcrypt($data['user_password']);
+
+        if ($request->has('user_password')) {
+            $data['user_password'] = bcrypt($request->input('user_password'));
+        }
+
         $user->update($data);
         return $user;
     }
+
 
     /**
      * Remove the specified resource from storage.

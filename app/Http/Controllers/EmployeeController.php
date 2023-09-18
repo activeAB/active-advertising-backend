@@ -150,7 +150,7 @@ class EmployeeController extends Controller
                 $user->save();
             }
         }
-        $rolesToExclude = ['admin', 'account_manager'];
+        $rolesToExclude = ['admin', 'account-manager'];
         $user = User::whereNotIn('user_role', $rolesToExclude)->get();
         // $data =  array_merge($user->toArray());
 
