@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user/{id}', [UserController::class, 'show']);
     Route::put('/user/{id}', [UserController::class, 'update']);
     Route::delete('/user/{id}', [UserController::class, 'destroy']);
+    // Route::post('/user', [UserController::class, 'store']);
     Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
     Route::get('/user/email/{email}', [UserController::class, 'userFind']);
 

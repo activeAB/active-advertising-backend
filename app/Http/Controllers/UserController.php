@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\Console\Input\Input;
 
 class UserController extends Controller
 {
@@ -95,10 +96,12 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
-        if ($request->has('user_password')) {
+        if ($request->has('user_password') && $request->input('user_password') !== null) {
             $data['user_password'] = bcrypt($request->input('user_password'));
         }
-
+        if ($request->has("user_image_url")) {
+            $data['user_image_url'] = $request->input('user_image_url');
+        }
         $user->update($data);
         return $user;
     }
