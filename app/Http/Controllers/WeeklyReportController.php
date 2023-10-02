@@ -24,9 +24,9 @@ class weeklyReportController extends Controller
         $totalOrders = Order::whereBetween('created_at', [$startDate, $endDate])->count();
         $totalInventory = Stock::whereBetween('created_at', [$startDate, $endDate])->count();
         $totalCustomer = Proforma::whereBetween('created_at', [$startDate, $endDate])
-            ->groupBy('client_tin_number')
-            ->select('client_tin_number', DB::raw('COUNT(*) as count'))
-            ->count();
+            ->distinct('client_tin_number')
+            ->count('client_tin_number');
+
         $approved = Proforma::where('status', 'Verified')
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();

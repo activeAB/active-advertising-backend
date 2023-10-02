@@ -90,13 +90,26 @@ class EmployeeController extends Controller
 
     public function employeeOrder($user_role, $id)
     {
+
+
         if ($user_role === "freelancer") {
             $orders = Order::where('freelancer_id', $id)->where('status', 'Allocated')->get();
             return response()->json([
                 'data' => $orders,
             ], 200);
         }
-        $orders = Order::where('user_id', $id)->where('status', 'Allocated')->get();
+        $orders = Order::where('user_id', $id)
+            ->where(function ($query) {
+                $query->where('status', 'Allocated')
+                    ->orWhere('status', 'Done');
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        foreach ($orders as $item) {
+            $item->formatted_created_at = date('Y-m-d', strtotime($item->created_at));
+        }
+
         return response()->json([
             'data' => $orders,
         ], 200);
