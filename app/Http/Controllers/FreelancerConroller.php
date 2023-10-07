@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Freelancer;
 use Illuminate\Http\Request;
 
@@ -105,9 +106,16 @@ class FreelancerConroller extends Controller
     {
         //
         $freelancer = Freelancer::findOrFail($id);
-        $freelancer->delete();
-        return response()->json([
-            'data' => $freelancer,
-        ], 200);
+        $freelancer->delete_role = 'yes';
+        $freelancer->save();
+
+        $orders = Order::where('freelancer_id', $id)->where('status', 'Allocated')->get();
+
+        foreach ($orders as $order) {
+            $order->status = 'Unallocated';
+            $order->freelancer_id = null;
+            $order->freelancer()->dissociate();
+            $order->save();
+        }
     }
 }

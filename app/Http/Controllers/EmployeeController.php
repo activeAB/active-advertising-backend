@@ -33,13 +33,13 @@ class EmployeeController extends Controller
     public function staffList(string $user_role)
     {
         if ($user_role == "all") {
-            $users = User::all();
+            $users = User::where('delete_role','no')->get();
             return response()->json(
                 $users,
                 200
             );
         }
-        $users = User::where('user_role', $user_role)->get();
+        $users = User::where('user_role', $user_role)->where('delete_role','no')->get();
         return response()->json(
             $users,
             200
@@ -164,7 +164,7 @@ class EmployeeController extends Controller
             }
         }
         $rolesToExclude = ['admin', 'account-manager'];
-        $user = User::whereNotIn('user_role', $rolesToExclude)->get();
+        $user = User::whereNotIn('user_role', $rolesToExclude)->where('delete_role','no')->get();
         // $data =  array_merge($user->toArray());
 
         return response()->json(
@@ -174,29 +174,7 @@ class EmployeeController extends Controller
     }
     public function employeeListFreelancer()
     {
-        // $users = User::all();
-        $freelancers = Freelancer::all();
-        // foreach ($users as $user) {
-        //     $allocated = false;
-        //     $orders = Order::where('user_id', $user->id)->get();
-
-        //     foreach ($orders as $order) {
-        //         if (($order->status !== 'Done') and ($order -> status !== 'Cancelled')) {
-        //             $allocated = true;
-        //             break;
-        //         }
-        //     }
-
-        //     if ($allocated) {
-        //         // Update user status to "allocated"
-        //         $user->status = 'Allocated';
-        //         $user->save();
-        //     } else {
-        //         // Update user status to "unallocated"
-        //         $user->status = 'Unallocated';
-        //         $user->save();
-        //     }
-        // }
+        $freelancers = Freelancer::where('delete_role','no')->get;
         foreach ($freelancers as $freelancer) {
             $allocated = false;
             $orders = Order::where('freelancer_id', $freelancer->id)->get();
@@ -218,10 +196,6 @@ class EmployeeController extends Controller
                 $freelancer->save();
             }
         }
-
-        // $rolesToExclude = ['admin', 'account_manager'];
-        // $user = User::whereNotIn('user_role', $rolesToExclude)->get();
-        // $data =  array_merge($user->toArray(), $freelancers->toArray());
 
         return response()->json(
             $freelancers,

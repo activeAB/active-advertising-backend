@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('freelancer_portfolio_link');
             $table->string('freelancer_order_status')->default('pending');
             $table->string('status')->default('Unallocated');
+            $table->string('delete_role')->default('no');
             $table->timestamps();
         });
     }

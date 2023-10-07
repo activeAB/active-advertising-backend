@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -113,8 +114,18 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
-        return $user;
+        $user->delete_role = 'yes';
+        $user->save();
+
+        // Update related orders
+        $orders = Order::where('user_id', $id)->where('status', 'Allocated')->get();
+
+        foreach ($orders as $order) {
+            $order->status = 'Unallocated';
+            $order->user_id = null;
+            $order->freelancer()->dissociate();
+            $order->save();
+        }
     }
 
     public function userFind(string $email)

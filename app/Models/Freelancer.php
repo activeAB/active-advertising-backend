@@ -17,6 +17,7 @@ class Freelancer extends Model
         'freelancer_image_url',
         'freelancer_portfolio_link',
         'freelancer_order_status',
+        'delete_role',
         'status'
     ];
 }
