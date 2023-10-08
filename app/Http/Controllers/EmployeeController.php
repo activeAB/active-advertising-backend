@@ -33,13 +33,13 @@ class EmployeeController extends Controller
     public function staffList(string $user_role)
     {
         if ($user_role == "all") {
-            $users = User::where('delete_role','no')->get();
+            $users = User::where('delete_role', 'no')->get();
             return response()->json(
                 $users,
                 200
             );
         }
-        $users = User::where('user_role', $user_role)->where('delete_role','no')->get();
+        $users = User::where('user_role', $user_role)->where('delete_role', 'no')->get();
         return response()->json(
             $users,
             200
@@ -93,7 +93,13 @@ class EmployeeController extends Controller
 
 
         if ($user_role === "freelancer") {
-            $orders = Order::where('freelancer_id', $id)->where('status', 'Allocated')->get();
+            $orders = Order::where('freelancer_id', $id)->where(function ($query) {
+                $query->where('status', 'Allocated')
+                    ->orWhere('status', 'Done');
+            })
+                ->orderBy('created_at', 'desc')
+                ->get();
+
             return response()->json([
                 'data' => $orders,
             ], 200);
@@ -164,7 +170,7 @@ class EmployeeController extends Controller
             }
         }
         $rolesToExclude = ['admin', 'account-manager'];
-        $user = User::whereNotIn('user_role', $rolesToExclude)->where('delete_role','no')->get();
+        $user = User::whereNotIn('user_role', $rolesToExclude)->where('delete_role', 'no')->get();
         // $data =  array_merge($user->toArray());
 
         return response()->json(
@@ -174,7 +180,7 @@ class EmployeeController extends Controller
     }
     public function employeeListFreelancer()
     {
-        $freelancers = Freelancer::where('delete_role','no')->get;
+        $freelancers = Freelancer::where('delete_role', 'no')->get;
         foreach ($freelancers as $freelancer) {
             $allocated = false;
             $orders = Order::where('freelancer_id', $freelancer->id)->get();
