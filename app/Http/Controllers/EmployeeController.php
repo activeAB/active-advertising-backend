@@ -180,7 +180,7 @@ class EmployeeController extends Controller
     }
     public function employeeListFreelancer()
     {
-        $freelancers = Freelancer::where('delete_role', 'no')->get;
+        $freelancers = Freelancer::where('delete_role', 'no')->get();
         foreach ($freelancers as $freelancer) {
             $allocated = false;
             $orders = Order::where('freelancer_id', $freelancer->id)->get();
