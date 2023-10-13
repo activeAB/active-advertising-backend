@@ -47,6 +47,14 @@ class FreelancerConroller extends Controller
         ]);
         $checkUser =  $user = Freelancer::where('freelancer_email', $data['freelancer_email'])->first();
         if ($checkUser) {
+            $statusFreelancer = $checkUser->delete_role;
+            if ($statusFreelancer === 'yes') {
+                $checkUser->update($data);
+                $checkUser->update(['delete_role' => 'no']); // Update the delete_role to 'no'
+                return response()->json([
+                    'data' => $checkUser,
+                ], 200);
+            }
             return response()->json(['message' => 'user exist'], 401);
         }
         $freelancer = Freelancer::create($data);

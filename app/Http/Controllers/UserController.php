@@ -44,6 +44,14 @@ class UserController extends Controller
         ]);
         $checkUser =  $user = User::where('user_email', $data['user_email'])->first();
         if ($checkUser) {
+            $statusUser = $checkUser->delete_role;
+            if ($statusUser === 'yes') {
+                $checkUser->update($data);
+                $checkUser->update(['delete_role' => 'no']); // Update the delete_role to 'no'
+                return response()->json([
+                    'data' => $checkUser,
+                ], 200);
+            }
             return response()->json(['message' => 'user exist'], 401);
         }
         $data['user_password'] = bcrypt($data['user_password']);
@@ -123,7 +131,7 @@ class UserController extends Controller
         foreach ($orders as $order) {
             $order->status = 'Unallocated';
             $order->user_id = null;
-            $order->freelancer()->dissociate();
+            $order->user()->dissociate();
             $order->save();
         }
     }
