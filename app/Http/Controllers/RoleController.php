@@ -14,7 +14,7 @@ class RoleController extends Controller
     {
         //
         $role = Role::all();
-        return response()->json($role,200);
+        return response()->json($role, 200);
     }
 
     /**
@@ -35,7 +35,20 @@ class RoleController extends Controller
             'role' => 'required',
         ]);
 
-
+        $exist = Role::where('role', $data['role'])->first();
+        if ($exist) {
+            $res = [
+                "message" => "role exist"
+            ];
+            return response()->json($res, 400);
+        }
+        if ($data['role']=="admin" || $data['role']=="ADMIN"|| $data['role']=="Admin") {
+            $res = [
+                "message" => "you cannot add admin!!"
+            ];
+            return response()->json($res, 400);
+        }
+        $data['role'] = strtolower($data['role']);
         $role = Role::create($data);
         return response()->json($role, 200);
     }
