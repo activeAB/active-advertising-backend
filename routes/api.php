@@ -109,9 +109,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/report', [WeeklyReportController::class, 'index']);
 });
 
-
-
 // done
+Route::get('/test_active', function(){
+    return "DOne..";
+});
+
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/forgot', [PasswordResetController::class, 'sendResetCode']);
 Route::post('/verifyCode', [PasswordResetController::class, 'checkCode']);
