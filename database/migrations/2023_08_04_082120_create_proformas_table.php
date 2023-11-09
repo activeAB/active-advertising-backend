@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->id();
             $table->string("invoice_date");
-            $table->string("payment_request_number")->unique();
+            $table->string("payment_request_number");
             $table->string("active_tin_nUmber");
             $table->string("active_account_number");
             $table->string("active_vat");
